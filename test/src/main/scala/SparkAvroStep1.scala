@@ -18,13 +18,21 @@ object SparkAvroStep1 {
     val sqlContext = new org.apache.spark.sql.SQLContext(spark)
     import sqlContext.implicits._
 
-    val input = sqlContext.read.json("file:///home/alexeys/HEPSparkTests/SparkBaconAnalyzer/test/data/bacon_muon.json").as[Muon].cache()
+    //custom schema: read only what you need
+    val jsonSchema = sqlContext.read.json(spark.parallelize(Array("""{"Muon": [{"pt": 93.9306, "eta": -1.02724}]}""")))
 
-    val muons_selected = input.filter(muon => (muon.eta < 2.4) & (muon.pt > 10.0))
-    //muons_selected.show()
-   
+    val input = sqlContext.read.format("json").schema(jsonSchema.schema).load("file:///home/alexeys/HEPSparkTests/SparkBaconAnalyzer_Alexeys/test/data/bacon.json").as[MuWrapper].cache()
+    input.printSchema()
+    //input.show(10)
+    println(input.count())
+
+    val muons_selected = input.flatMap(muon => muon.Muon).
+                               filter(muon => (muon.eta < 2.4) & (muon.pt > 10.0))
+    println(muons_selected.count())
+
     muons_selected.toDF().write.parquet("/user/alexeys/selected_muons")
   }
 }
 
-case class Muon(pt: Double,eta:Double,phi:Double,trkIso:Double,ecalIso:Double,hcalIso:Double,chHadIso:Double,gammaIso:Double,neuHadIso:Double,puIso:Double,d0:Double,dz:Double,pogIDBits: Long)
+case class Mu(eta: Double,pt:Double)
+case class MuWrapper(Muon: Array[Mu])
