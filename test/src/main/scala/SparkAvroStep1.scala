@@ -79,5 +79,5 @@ object SparkAvroStep1 {
   }
 }
 
-case class Mu(eta: Double,pt:Double)
-case class MuWrapper(Muon: Array[Mu])
+@serializable case class Mu(eta: Double,pt:Double)
+@serializable case class MuWrapper(Muon: Array[Mu])
