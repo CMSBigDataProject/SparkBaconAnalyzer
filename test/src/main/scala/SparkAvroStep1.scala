@@ -25,7 +25,7 @@ object SparkAvroStep1 {
         .action((x, c) => c.copy(muPtCut = x))
       arg[String]("<inputFile>")
         .required()
-        .text(s"input file, one JSON per line, located in NFS by default (file://)")
+        .text(s"input file, one JSON per line, located in HDFS by default")
         .action((x, c) => c.copy(inputFile = x))
       arg[String]("<outputFile>")
         .required()
@@ -37,7 +37,7 @@ object SparkAvroStep1 {
           |
           | spark-submit --class "SparkAvroStep1" \ 
           | --master yarn-client --num-executors 20 --executor-memory 3g \
-          | target/scala-2.10/BaconAnalysis-assembly-1.0.jar 
+          | target/scala-2.10/BaconAnalysis-assembly-1.0.jar \
           | --muPtCut 10.0 /user/alexeys/HEP/QCD_HT1500to2000_13TeV_2/ /user/alexeys/HEPoutput/QCD_HT1500to2000_13TeV_2/
         """.stripMargin)
     }
@@ -66,16 +66,15 @@ object SparkAvroStep1 {
     //custom schema: read only what you need
     val jsonSchema = sqlContext.read.json(spark.parallelize(Array("""{"Muon": [{"pt": 93.9306, "eta": -1.02724}]}""")))
 
-    val input = sqlContext.read.format("json").schema(jsonSchema.schema).load("file://"+params.inputFile).as[MuWrapper].cache()
+    val input = sqlContext.read.format("json").schema(jsonSchema.schema).load(params.inputFile).as[MuWrapper].cache()
     input.printSchema()
     //input.show(10)
-    println(input.count())
 
-    val muons_selected = input.flatMap(muon => muon.Muon).
-                               filter(muon => (muon.eta < 2.4) & (muon.pt > params.muPtCut))
-    println(muons_selected.count())
+    val muPtCut = params.muPtCut
+    val muons_selected = input.flatMap(muon => muon.Muon)
+                              .filter(muon => (muon.eta < 2.4) & (muon.pt > muPtCut))
 
-    muons_selected.toDF().write.parquet("file://"+params.outputFile)
+    muons_selected.toDF().write.parquet(params.outputFile)
   }
 }
 
