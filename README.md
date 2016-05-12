@@ -46,3 +46,8 @@ python SparkAvroStep2.py
 ```
 
 Note: second step will be modified in future.
+
+
+## Example stacked multisample plot
+
+<img src="docs/pt.png">
