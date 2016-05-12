@@ -50,4 +50,4 @@ Note: second step will be modified in future.
 
 ## Example stacked multisample plot
 
-<img src="docs/pt.png">
+<img src="test/docs/pt.png">
