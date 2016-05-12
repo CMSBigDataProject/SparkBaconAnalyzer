@@ -3,6 +3,8 @@
  * 
  * DO NOT EDIT DIRECTLY
  */
+import java.util.List;
+
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
 public class Events extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
