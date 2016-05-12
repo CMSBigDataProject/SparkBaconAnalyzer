@@ -5,11 +5,18 @@ import org.apache.spark.SparkContext._
 import org.apache.spark.sql.SQLContext
 import org.apache.spark.sql.functions._
 
+import org.dianahep.histogrammar._
+import org.dianahep.histogrammar.histogram._
+
+import java.io._
 
 object SparkAvroStep1 {
 
   case class Params(inputFile: String = null, outputFile: String = null, muPtCut: Double = 10.0)
     extends AbstractParams[Params]
+
+  //get type of var utility 
+  def manOf[T: Manifest](t: T): Manifest[T] = manifest[T]
 
   def main(args: Array[String]) {
 
@@ -71,10 +78,25 @@ object SparkAvroStep1 {
     //input.show(10)
 
     val muPtCut = params.muPtCut
-    val muons_selected = input.flatMap(muon => muon.Muon)
-                              .filter(muon => (muon.eta < 2.4) & (muon.pt > muPtCut))
+    val muons_selected_rdd = input.flatMap(muon => muon.Muon)
+                                  .filter(muon => (muon.eta < 2.4) & (muon.pt > muPtCut)).rdd
 
-    muons_selected.toDF().write.parquet(params.outputFile)
+
+    //book histograms here
+    val pt_histogram = Histogram(100, 5, 500, {mu: Mu => mu.pt})
+    val all_histograms = Label("pt" -> pt_histogram)
+
+    val final_histogram = muons_selected_rdd.aggregate(all_histograms)(new Increment, new Combine)
+
+    //save output 
+    val json_string = final_histogram("pt").toJson.stringify
+ 
+    val file = new File(params.outputFile)
+    val bw = new BufferedWriter(new FileWriter(file))
+    bw.write(json_string)
+    bw.close()
+
+    //muons_selected.toDF().write.parquet(params.outputFile)
   }
 }
 
