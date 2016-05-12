@@ -1,6 +1,6 @@
 # Description of the analysis workflows
 
-The test folder contains two independent analysis workflows. Both workflows recognize files in JSON and Avro formats prepared with ```root2avro``` conversion tool.  
+The test folder contains an analysis workflow based on Scala and Python. The workflow should recognize files in JSON and Avro formats prepared with ```root2avro``` conversion tool.  
 
 
 ## Preprocessing
@@ -21,20 +21,10 @@ sed -i -e 's/-nan/-999999.9/g' DYJetsToLL_M_50_HT_100to200_13TeV_output*
 sed -i -e 's/nan/-999999.9/g' DYJetsToLL_M_50_HT_100to200_13TeV_output*
 ```
 
-## Fully ```Python``` based
-
-Bacon ntuple converted to ```JSON``` using the ```root2avro``` tool is ingested into dataframe and transformed/acted on using UDFs. The final result is plotted using Python's ```matplotlib```
-
-To run on BD do:
-
-```bash
-spark-submit --master local[5] SparkJsonTest.py
-```
-
-## ```Scala``` and ```Python``` based
+## ```Scala``` and ```Python``` based workflow
 
 On the first step, bacon ```JSON``` or ```Avro``` produced using the ```root2avro``` conversion tool is ingested into Spark's dataset. The corresponding collections are flattened with ```flatMap``` transformation, and 
-the event and muon selection is applied. Filterted datasets are saved in ```Parquet``` columnar format to an intermediate ```HDFS``` sink. 
+the event and muon selection is applied. Histogramming using the ```Histogrammar``` is applied, and the output is saved as a JSON to the disk.
 
 To run on BD, firt build the project with SBT:
 
@@ -44,14 +34,15 @@ sbt assembly
 
 Next, submit the jobs specifying the class and path to the jar file:
 ```bash
-spark-submit --class "SparkAvroStep1" --master yarn-client target/scala-2.10/BaconAnalysis-assembly-1.0.jar 
+spark-submit --class "SparkAvroStep1" --master yarn-client --num-executors 20 --executor-cores 3 --executor-memory 3g target/scala-2.10/BaconAnalysis-assembly-1.0.jar --muPtCut 10.0 file:///scratch/network/alexeys/HEP/QCD_HT1000to1500_13TeV_2/ /user/alexeys/HEPoutput/QCD_HT1000to1500_13TeV_2_0
 ```
 
-On the second step, selected muons are ingested into Spark's dataframe, necessary histograms are prepared,
-finally, the result is plotted using Python's ```matplotlib```    
+On the second step, the results are plotted using Python's ```matplotlib```    
 
 To run the second step on BD do:
 
 ```bash
-spark-submit --master local[5] SparkAvroStep2.py
+python SparkAvroStep2.py
 ```
+
+Note: second step will be modified in future.
