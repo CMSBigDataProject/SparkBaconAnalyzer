@@ -21,7 +21,7 @@ import org.apache.spark.SparkConf
 import org.apache.avro.mapred.AvroKey
 import org.apache.hadoop.io.NullWritable
 
-val conf = new SparkConf().setMaster("local").setAppName("shell")
+val conf = new SparkConf().setMaster("yarn-client").setAppName("shell")
 
 conf.registerKryoClasses(Array(classOf[Events], classOf[baconhep.TAddJet], classOf[baconhep.TElectron], classOf[baconhep.TEventInfo], classOf[baconhep.TGenEventInfo], classOf[baconhep.TGenParticle], classOf[baconhep.TJet], classOf[baconhep.TMuon], classOf[baconhep.TPhoton], classOf[baconhep.TTau], classOf[baconhep.TVertex]))
 
