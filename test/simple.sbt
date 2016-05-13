@@ -13,6 +13,9 @@ libraryDependencies ++= Seq(
 libraryDependencies += "com.databricks" %% "spark-avro" % "2.0.1"
 libraryDependencies += "com.github.scopt" %% "scopt" % "3.4.0"
 
+libraryDependencies += "org.scalamacros" % "quasiquotes_2.10" % "2.1.0"
+addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
+
 initialCommands in console += """
 import org.apache.spark.SparkContext
 import org.apache.spark.SparkContext._
@@ -26,6 +29,7 @@ val conf = new SparkConf().setMaster("local").setAppName("shell")
 conf.registerKryoClasses(Array(classOf[Events], classOf[baconhep.TAddJet], classOf[baconhep.TElectron], classOf[baconhep.TEventInfo], classOf[baconhep.TGenEventInfo], classOf[baconhep.TGenParticle], classOf[baconhep.TJet], classOf[baconhep.TMuon], classOf[baconhep.TPhoton], classOf[baconhep.TTau], classOf[baconhep.TVertex]))
 
 val sc = new SparkContext(conf)
+val sqlContext = new org.apache.spark.sql.SQLContext(sc)
 
 def makeAvroRDD(hdfsFileName: String) =
     sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]](hdfsFileName).map(_._1.datum)
