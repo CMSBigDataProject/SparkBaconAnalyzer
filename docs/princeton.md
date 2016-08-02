@@ -46,6 +46,7 @@ it should print a value >= 4.0. Otherwise, please follow the instructions on how
 We wouldneed to create an isolated Anaconda environment for that:
 
 ```bash
+module load anaconda3/2.5.0
 conda create -n DarkMatter python=3.5.1 anaconda
 source activate DarkMatter
 conda install --name DarkMatter jupyter
@@ -78,6 +79,22 @@ and here
 https://github.com/histogrammar/histogrammar-python
 
 the Python bindings should be installed in the same Anaconda environment as above (it does not matter for Scala though).
+
+
+Note: pip-based installation is possible via:
+
+```bash
+pip install --user jupyter
+```
+
+Note: when using Anaconda, following two steps would have to be repeated every login:
+
+```bash
+module load anaconda3/2.5.0
+source activate DarkMatter
+```
+
+Therefore, you can put it in the `.bashrc` file.
 
 ### Running the notebook via ssh tunnel
 
