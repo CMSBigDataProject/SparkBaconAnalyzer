@@ -94,6 +94,14 @@ module load anaconda3/2.5.0
 source activate DarkMatter
 ```
 
+in addition, one needs to make sure that the version used by PySpark is the same that is in the environment you install your packages to by setting:
+
+```bash
+export PYSPARK_PYTHON=/home/alexeys/.conda/envs/DarkMatter/bin/python3.5
+export PYSPARK_DRIVER_PYTHON=/home/alexeys/.conda/envs/DarkMatter/bin/python3.5
+```
+
+
 Therefore, you can put it in the `.bashrc` file.
 
 ### Running the notebook via ssh tunnel
