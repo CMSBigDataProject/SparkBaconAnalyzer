@@ -117,6 +117,22 @@ The last option -L lists the port forwarding configuration (remote port 8889 to 
 
 Note: tunnel will be running in the background. The notebook can now be accessed from your browser at `http://localhost:8888`
 
+### Running Spark-enabled notebook in a disrtibuted mode
+
+To run Spark enabled Jupyter notebook on BD one would have to re-launch the Jupyter as follows:
+
+Scala based:
+
+```bash
+IPYTHON_OPTS="notebook --no-browser --port=8889 --ip=127.0.0.1" spark-shell --master yarn-client --num-executors 10 --executor-cores 2 --executor-memory 5g
+```
+
+Python based:
+
+```bash
+IPYTHON_OPTS="notebook --no-browser --port=8889 --ip=127.0.0.1" pyspark --master yarn-client --num-executors 10 --executor-cores 2 --executor-memory 5g
+```
+
 ## Next steps
 
 One you are done with the installations and have the ssh tunnel up and running, go ahead and test few workflows 
