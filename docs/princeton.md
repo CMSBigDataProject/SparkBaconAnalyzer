@@ -115,6 +115,7 @@ and is useful for port forwarding. The second option -f has the effect that SSH
 will go to background, so the local tunnel-enabling terminal remains usable. 
 The last option -L lists the port forwarding configuration (remote port 8889 to local port 8888).
 
+Note: tunnel will be running in the background. The notebook can now be accessed from your browser at `http://localhost:8888`
 
 ## Next steps
 
