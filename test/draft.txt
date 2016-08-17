@@ -3,26 +3,28 @@ import org.apache.hadoop.io.NullWritable
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.Row
 import scala.collection.JavaConversions._
-import scala.language.postfixOps
-import MakeRow._
-import org.dianahep.histogrammar._
-import org.dianahep.histogrammar.json._
 
 object SkimWorkflow {
 
     // RDDs
     def SingleElectron(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/SingleElectron*/*.avro").map(_._1.datum)
     def MET(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/MET*/*.avro").map(_._1.datum)
-    def SinglePhoton(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/SinglePhoton*/*.avro").map(_._1.datum)
     
-    def	QCD100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT100to200*/*.avro").map(_._1.datum)
-    def QCD200to300(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT200to300*/*.avro").map(_._1.datum)
-    def QCD300to500(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT300to500*/*.avro").map(_._1.datum)
-    def QCD500to700(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT500to700*/*.avro").map(_._1.datum)
-    def QCD700to1000(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT700to1000*/*.avro").map(_._1.datum)
-    def QCD1000to1500(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT1000to1500*/*.avro").map(_._1.datum)
-    def QCD1500to2000(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT1500to2000*/*.avro").map(_._1.datum)
-    def QCD2000toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT2000toInf*/*.avro").map(_._1.datum)
+    def QCD(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT*/*.avro").map(_._1.datum)
+    def W(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu*/*.avro").map(_._1.datum)
+    def Z(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZJetsToNuNu*/*.avro").map(_._1.datum)
+    def DY(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/DYJetsToLL*/*.avro").map(_._1.datum)
+    def G(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets*/*.avro").map(_._1.datum)
+    def T(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ST_t*/*.avro").map(_._1.datum)
+
+    def	QCD100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT100to200_13TeV*/*.avro").map(_._1.datum)
+    def QCD200to300(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT200to300_13TeV*/*.avro").map(_._1.datum)
+    def QCD300to500(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT300to500_13TeV*/*.avro").map(_._1.datum)
+    def QCD500to700(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT500to700_13TeV*/*.avro").map(_._1.datum)
+    def QCD700to1000(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT700to1000_13TeV*/*.avro").map(_._1.datum)
+    def QCD1000to1500(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT1000to1500_13TeV*/*.avro").map(_._1.datum)
+    def QCD1500to2000(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT1500to2000_13TeV*/*.avro").map(_._1.datum)
+    def QCD2000toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT2000toInf_13TeV*/*.avro").map(_._1.datum)
     def	W100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu_HT_100to200_13TeV*/*.avro").map(_._1.datum)
     def W200to400(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu_HT_200to400_13TeV*/*.avro").map(_._1.datum)
     def W400to600(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu_HT_400to600_13TeV*/*.avro").map(_._1.datum)
@@ -95,180 +97,66 @@ object SkimWorkflow {
     val xsGJets400to600 = 277.6
     val xsGJets600toInf = 93.47
 
-    // Constants
-    val muonMass = 0.105658369
-    val electronMass = 0.000510998910
-    val photonMass = 0
-    val CSVL = 0.605
+    // Check Json (for data only)
+    def loadJson(event: Events) = {
+       val lRunLumi = new Tuple2(event.Info.runNum,event.Info.lumiSec)
+       //hasRunLumi(lRunLumi)
+    }
 
     // Check GenInfo (for MC only)
     def loadGenInfo(event: Events, xs: Double, weight: Double) = {
-       (xs*1000*event.GenEvtInfo.weight)/weight
+       val lWeight = (xs*1000*event.GenEvtInfo.weight)/weight
     }
 
-    abstract class InfoVars(var runNum: Long, var lumiSec: Long, var evtNum: Long, var metfilter: Long, var scale1fb: Double, var evtWeight: Double, var pfmet: Double, var pfmetphi: Double, var puppet: Double, var puppetphi: Double, var fakepfmet: Double, var fakepfmetphi: Double, var fakepuppet: Double, var fakepuppetphi: Double) extends Product
-    abstract class GenEvtInfoVars(var genVPt: Double, var genVPhi: Double) extends Product
-    abstract class MuonVars(var pt: Double, var eta: Double, var phi: Double, var m: Double) extends Product
-    abstract class ElectronVars(var pt: Double, var eta: Double, var phi: Double, var m: Double) extends Product
-    abstract class TauVars(var pt: Double, var eta: Double, var phi: Double) extends Product
-    abstract class PhotonVars(var NLoose: Int, var NMedium: Int, var pt: Double, var eta: Double, var phi: Double) extends Product
-    abstract class JetVars(var N: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var NdR15: Int, var NbtagLdR15: Int, var mindPhi: Double, var mindFPhi: Double) extends Product
-    abstract class VJetVars(var N: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var tau21: Double, var tau32: Double, var msd: Double, var minsubcsv: Double, var maxsubcsv: Double) extends Product
-    abstract class AllVars(var infovars: InfoVars = null, var genevtinfovars: GenEvtInfoVars = null, var muonvars: MuonVars = null, var electronvars: ElectronVars = null, var tauvars: TauVars = null, var photonvars: PhotonVars = null, var jetvars: JetVars = null, var vjetvars: VJetVars = null) extends Product
+    val iHLTfile = scala.io.Source.fromFile("/home/csuarez/bigdata/SparkBaconAnalyzer/test/HLTFile_25ns_new")
+    
+    // Triggers
+    def getTriggerBit(iName: String) = {  
+      val iId = -1
 
-    //
-    //val xsecWW = skimWorkFlow.xsWW
-    //val nevtsWW = rdd.
-    //val rdd_filtered = rdd.filter(hasgoodJson).filter(_.Info.hasGoodPV).flatMap(runMonoX)
-    //val rdd_filtered = rdd.filter(hasgoodJson).filter(_.Info.hasGoodPV).flatMap(runMonoX(_, xsecWW, nevtsWW))
-    //val rdd_filtered = rdd.filter(_.Info.hasGoodPV).flatMap(runMonoX)
-    //val rdd_todf = rdd_filtered.toDF()
-    //println(rdd_todf.schema)
-    //rdd_todf.write.parquet("outputDirectory")
+    }
+    def passTrigger(event: Events, trigger: String) = {
 
-    def runMonoX(event: Events, xsec: Double, nevts: Double) = {
+    }
+    
+    def runMonoX(event: Events) = {
 
-      // trigger information missing
-      // lepton SFs missing
-      // btag SFs missing
-      // trigger effs missing
 
-      val filteredMuons = event.Muon.filter(filterMuon)
-      val filteredElectrons = event.Electron.filter(filterElectron(_, event.Info.rhoIso))
-      val filteredTaus = event.Tau.filter(filterTau)
-      val filteredPhotons = event.Photon.filter(filterPhoton(_, event.Info.rhoIso))
-      val filteredJets = event.AK4Puppi.filter(filterJet)
-      val filteredVJets = event.CA15Puppi.filter(filterVJet)
 
-      val allvars = create[AllVars](null, null, null, null, null, null, null, null)
+      event.Info.hasGoodPV
+       
+      // Objects
+      pMuon = event.Muon.filter(filterMuon).maxBy(_.pt)
+      pElectron = event.Electron.filter(filterElectron).maxBy(_.pt)
+      pTau = event.Tau.filter(filterTau).maxBy(_.pt)
+      pPhoton = event.Photon.filter(filterPhoton).maxBy(_.pt)
+      pVJet = event.CA15Puppi.filter(filterVJet).maxBy(_.pt)
+      pJet = event.AK4Puppi.filter(filterJet).maxBy(_.pt)
 
-      allvars.infovars = create[InfoVars](0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-      allvars.infovars.runNum = event.Info.runNum
-      allvars.infovars.lumiSec = event.Info.lumiSec	      
-      allvars.infovars.evtNum = event.Info.evtNum
-      allvars.infovars.metfilter = event.Info.metFilterFailBits
-      allvars.infovars.pfmet = event.Info.pfMETC
-      allvars.infovars.pfmetphi = event.Info.pfMETCphi
-      allvars.infovars.puppet = event.Info.puppETC
-      allvars.infovars.puppetphi = event.Info.puppETCphi
-      allvars.infovars.fakepfmet = event.Info.pfMETC
-      allvars.infovars.fakepfmetphi = event.Info.pfMETCphi
-      allvars.infovars.fakepuppet = event.Info.puppETC
-      allvars.infovars.fakepuppetphi = event.Info.puppETCphi
+      // SFs
 
-      val vpuppet = LorentzVector(event.Info.puppETC,0,event.Info.puppETCphi,0)
-      val vpfmet = LorentzVector(event.Info.pfMETC,0,event.Info.pfMETCphi,0)
-      
-      allvars.genevtinfovars = create[GenEvtInfoVars](0.0, 0.0)
+      // Go to list
+      create[something]()
 
-      var vmuon = LorentzVector(0,0,0,0)
-      if (!filteredMuons.isEmpty) {
-        allvars.muonvars = create[MuonVars](0.0, 0.0, 0.0, 0.0)
-        val m = filteredMuons.maxBy(_.pt)
-        allvars.muonvars.pt = m.pt
-	allvars.muonvars.eta = m.eta
-        allvars.muonvars.phi = m.phi
-        allvars.muonvars.m = muonMass
-	vmuon = LorentzVector(m.pt, m.eta, m.phi, muonMass)
-      }
-
-      var velectron = LorentzVector(0,0,0,0)
-      if (!filteredElectrons.isEmpty) {
-        allvars.electronvars = create[ElectronVars](0.0, 0.0, 0.0, 0.0)
-        val e = filteredElectrons.maxBy(_.pt)
-        allvars.electronvars.pt = e.pt
-        allvars.electronvars.eta = e.eta
-        allvars.electronvars.phi = e.phi
-        allvars.electronvars.m = electronMass
-	velectron = LorentzVector(e.pt, e.eta, e.phi, electronMass)
-      }
-
-      if (!filteredTaus.isEmpty) {
-        allvars.tauvars = create[TauVars](0.0, 0.0, 0.0)
-        val t = filteredTaus.maxBy(_.pt)
-        allvars.tauvars.pt = t.pt
-        allvars.tauvars.eta = t.eta
-	allvars.tauvars.phi = t.phi
-      }
-
-      if (!filteredPhotons.isEmpty) {
-        allvars.photonvars = create[PhotonVars](0.0, 0.0, 0.0, 0.0, 0.0)
-        val p = filteredPhotons.maxBy(_.pt)
-        allvars.photonvars.pt = p.pt
-        allvars.photonvars.eta = p.eta
-        allvars.photonvars.phi = p.phi
-	allvars.photonvars.NMedium = filteredPhotons.size
-      }
-
-      var vjet = LorentzVector(0, 0, 0, 0)
-
-      if (!filteredVJets.isEmpty) {
-        allvars.vjetvars = create[VJetVars](0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-	val v = filteredVJets.maxBy(_.pt)
-        val vadd = event.AddCA15Puppi.find(puppijet => event.CA15Puppi(puppijet.index.toInt) == v) match {
-         case Some(puppijet) => puppijet
-         case None => throw new Exception()
-       }
-
-        allvars.vjetvars.N = filteredVJets.size
-        allvars.vjetvars.pt = v.pt
-        allvars.vjetvars.eta = v.eta
-        allvars.vjetvars.phi = v.phi
-        allvars.vjetvars.m = v.mass
-        allvars.vjetvars.csv = v.csv
-        allvars.vjetvars.CHF = v.chHadFrac
-        allvars.vjetvars.NHF = v.neuHadFrac
-        allvars.vjetvars.NEMF = v.neuEmFrac
-        allvars.vjetvars.tau21 = vadd.tau2/vadd.tau1
-        allvars.vjetvars.tau32 = vadd.tau3/vadd.tau2
-        allvars.vjetvars.msd = vadd.mass_sd0
-        allvars.vjetvars.minsubcsv = Math.min(vadd.sj1_csv, vadd.sj2_csv)
-        allvars.vjetvars.maxsubcsv = Math.max(Math.max(vadd.sj1_csv, vadd.sj2_csv),Math.max(vadd.sj3_csv, vadd.sj4_csv))
-        vjet = LorentzVector(v.pt,v.eta,v.phi,v.mass)
-      }
-      
-      var jet = LorentzVector(0,0,0,0)
-
-      if (!filteredJets.isEmpty) {
-        allvars.jetvars = create[JetVars](0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-        val j = filteredJets.maxBy(_.pt)
-	var pdPhi = 999.99
-	var pdFPhi = 999.99
-
-        allvars.jetvars.pt = j.pt
-        allvars.jetvars.eta = j.eta
-        allvars.jetvars.phi = j.phi
-        allvars.jetvars.m = j.mass
-	allvars.jetvars.csv = j.csv
-        allvars.jetvars.CHF = j.chHadFrac
-        allvars.jetvars.NHF = j.neuHadFrac
-        allvars.jetvars.NEMF = j.neuEmFrac
-
-	pdPhi = if(Math.acos(Math.cos(allvars.infovars.puppetphi-j.phi)) < pdPhi) Math.acos(Math.cos(allvars.infovars.puppetphi-j.phi)) else pdPhi
-	pdFPhi = if(allvars.infovars.fakepuppet>0 && Math.acos(Math.cos(allvars.infovars.fakepuppetphi-j.phi)) < pdFPhi) Math.acos(Math.cos(allvars.infovars.fakepuppetphi-j.phi)) else pdPhi
-	allvars.jetvars.mindPhi = pdPhi
-	allvars.jetvars.mindFPhi = pdFPhi
-
-        allvars.jetvars.N = filteredJets.size
-        allvars.jetvars.NdR15 = filteredJets.filter(dR(_,vjet,1.5)).size
-        allvars.jetvars.NbtagLdR15 = filteredJets.filter(dR(_,vjet,1.5)).filter(j => Math.abs(j.eta) < 2.5).filter(j => j.csv > CSVL).size
-
-        jet = LorentzVector(j.pt,j.eta,j.phi,j.mass)
-      }
-
-      if(allvars.infovars.pfmet > 200. || allvars.infovars.puppet > 200. || allvars.infovars.fakepuppet > 200. || allvars.infovars.fakepfmet > 200.){
-        List(allvars)
-      }
-      else{
-	List()
-      }
     }
 
+    ///////
+    // Json
+    ///////
+    //import org.json4s._
+    //import org.json4s.native.JsonMethods._
+    //implicit val formats = org.json4s.DefaultFormats
+ 
+    //case class RunLumiRangeMap(runNum: Int,lumiPair: List[Tuple2[Long,Long]])
+    // Load json file
+    //val json = scala.io.Source.fromFile("/home/csuarez/bigdata/SparkBaconAnalyzer/test/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_v2.txt").getLines.mkString
+    // Check if a given run, lumi pair is included in the mapped lumi ranges
+    //val lMap = parse(json).extract[Map[Int, List[Tuple2[Int,Int]]]]
+    //def hasRunLumi(runLumi: Tuple2[Any, Any]) {
+    	  //lMap.find(_._1==runLumi._1) && lMap.foreach( case (key, value) => value.foreach( lumiPair => lumiPair._1==runLumi._2._1 && lumiPair==runLumi._2._2))
+    //}
 
-    //if(event.AK4Puppi.filter(filterJet).maxBy(_.pt).pt > 250) true
-
-    // Json and Lumi
-     val runlumiLookup: Map[Long, Seq[(Long, Long)]] = Json.parse(new java.util.Scanner(new java.io.FileInputStream("/home/csuarez/bigdata/SparkBaconAnalyzer/test/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_v2.txt")).useDelimiter("\\A").next) match {
+     val runlumiLookup: Map[Long, List[(Long, Long)]] = Json.parse(new java.util.Scanner(new java.io.FileInputStream(filename)).useDelimiter("\\A").next) match {
        case Some(JsonObject(runlumi @ _*)) =>
          runlumi map {
 	   case (JsonString(run), JsonArray(lumi @ _*)) =>
@@ -281,23 +169,19 @@ object SkimWorkflow {
       case _ => throw new Exception
      }
 
-    def eventInLumi(lumiSec: Long, lumiPair: Seq[(Long, Long)]): Boolean =
-      lumiPair exists {case (start, end) => start <= lumiSec && lumiSec <= end}
+    def eventInLumi(eventNumber: Long, lumis: List[(Long, Long)]): Boolean =
+      lumis exists {case (start, end) => start <= eventNumber && eventNumber <= end}
+
+    // for (event <- events) {
 
     def goodEvent(event: Events) = {
-       val lRun = new Tuple2(event.Info.runNum,event.Info.lumiSec)
-       val lumiPair: Seq[(Long, Long)] = runlumiLookup.getOrElse(event.Info.runNum, Seq[(Long, Long)]()) 
-       eventInLumi(event.Info.lumiSec, lumiPair)
+        val lumis: List[(Long, Long)] = runlumiLookup.getOrElse(runNumber, List[(Long, Long)]())
+        val eventNumber = ...
+        eventInLumi(eventNumber, lumis))
     }
 
     // In Spark:
-    // rdd
-    // rdd.filter(goodEvent).map(runMonoX)
-
-    // filters from defined variables
-    def filterMET(i: InfoVars) = {
-    	i.pfmet > 170 || i.puppet > 170 || i.fakepuppet > 170 || i.fakepfmet > 170
-    }
+    //  rdd.filter(goodEvent).map(everything else)
 
     // main filters
     def filterMuon(m: baconhep.TMuon) = {
@@ -331,13 +215,6 @@ object SkimWorkflow {
         j.pt >= 150 && Math.abs(j.eta) < 2.5 && passJetLooseSel(j)
     }
 
-    // small filters
-    def dR(j: baconhep.TJet, vj: LorentzVector, R: Double) = { 
-        val jet = LorentzVector(j.pt, j.eta, j.phi, j.mass)
-	jet.DeltaR(vj) > R
-    }
-
-
     // filling variables
     def fillTau(t: baconhep.TTau) = {
         LorentzVector(t.pt, t.eta, t.phi, t.m)
@@ -369,14 +246,6 @@ object SkimWorkflow {
         LorentzVector(pt, phi, eta, m)
       }
 
-      def DeltaR(that: LorentzVectorMethods) = {
-        val deta = this.eta - that.eta
-	val dphi = if(this.phi - that.phi >= Math.PI) this.phi - that.phi - Math.PI
-	           else if(this.phi - that.phi < -Math.PI) this.phi - that.phi + Math.PI
-		   else this.phi - that.phi
-	Math.sqrt(deta*deta + dphi*dphi)
-      }
-
     }
 
     object LorentzVectorMethods {
@@ -402,12 +271,12 @@ object SkimWorkflow {
       }
     } 
 
-    //Object LorentzVector {
-    //def frompxpypze(px: Double, py: Double, pz: Double, e: Double) = {
-    //    val (pt, phi, eta, m) = LorentzVectorMethods.setptphietam(px, py, pz, e) 
-    //    LorentzVector(pt, phi, eta, m)
-    //  }
-    //}
+    object LorentzVector {
+      def frompxpypze(px: Double, py: Double, pz: Double, e: Double) = {
+        val (pt, phi, eta, m) = LorentzVectorMethods.setptphietam(px, py, pz, e) 
+        LorentzVector(pt, phi, eta, m)
+      }
+    }
 
     // Filters from MonoXUtils
 
@@ -646,10 +515,10 @@ object SkimWorkflow {
     // TOOLS
     def passVeto(iEta: Double, iPhi: Double, idR: Double, iVetoes: Vector[LorentzVector]) = {
       var pMatch = false
-      for( i1 <- 0 until iVetoes.size) {
+      for( i1 <- 0 to iVetoes.size) {
         val pDEta = iEta - iVetoes(i1).eta
         var pDPhi = iPhi - iVetoes(i1).phi
-        if(Math.abs(pDPhi) > 2*Math.PI-Math.abs(pDPhi)) pDPhi = 2*Math.PI-Math.abs(pDPhi) 
+        if(Math.abs(pDPhi) > 2*3.14159265-Math.abs(pDPhi)) pDPhi = 2*3.14159265-Math.abs(pDPhi) //pi?
         if(Math.sqrt(pDPhi*pDPhi+pDEta*pDEta) < idR && iVetoes(i1).pt < 0) pMatch = true
       } 
       pMatch
