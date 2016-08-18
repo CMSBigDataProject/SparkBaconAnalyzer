@@ -12,7 +12,7 @@ object SkimWorkflow {
 
     // RDDs
     def SingleElectron(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/SingleElectron*/*.avro").map(_._1.datum)
-    def MET(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/MET*/*.avro").map(_._1.datum)
+    def MET(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/METRun2015D_16Dec2015_v1/*.avro").map(_._1.datum)
     def SinglePhoton(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/SinglePhoton*/*.avro").map(_._1.datum)
     
     def	QCD100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT100to200*/*.avro").map(_._1.datum)
@@ -27,7 +27,7 @@ object SkimWorkflow {
     def W200to400(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu_HT_200to400_13TeV*/*.avro").map(_._1.datum)
     def W400to600(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu_HT_400to600_13TeV*/*.avro").map(_._1.datum)
     def W600toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu_HT_600toInf_13TeV*/*.avro").map(_._1.datum)
-    def Z100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZJetsToNuNu_HT_100to200_13TeV*/*.avro").map(_._1.datum)
+    def Z100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZJetsToNuNu_HT_100to200_13TeV/*.avro").map(_._1.datum)
     def Z200to400(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZJetsToNuNu_HT_200to400_13TeV*/*.avro").map(_._1.datum)
     def Z400to600(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZJetsToNuNu_HT_400to600_13TeV*/*.avro").map(_._1.datum)
     def Z600toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZJetsToNuNu_HT_600toInf_13TeV*/*.avro").map(_._1.datum)
@@ -35,10 +35,10 @@ object SkimWorkflow {
     def DY200to400(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/DYJetsToLL_M_50_HT_200to400_13TeV_2/*.avro").map(_._1.datum)
     def DY400to600(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/DYJetsToLL_M_50_HT_400to600_13TeV_2/*.avro").map(_._1.datum)
     def DY600toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/DYJetsToLL_M_50_HT_600toInf_13TeV_2/*.avro").map(_._1.datum)
-    def G100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_100to200_13TeV*/*.avro").map(_._1.datum)
-    def G200to400(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_200to400_13TeV*/*.avro").map(_._1.datum)
-    def G400to600(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_400to600_13TeV*/*.avro").map(_._1.datum)
-    def G600toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_600toInf_13TeV*/*.avro").map(_._1.datum)
+    def G100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_100to200_13TeV/*.avro").map(_._1.datum)
+    def G200to400(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_200to400_13TeV/*.avro").map(_._1.datum)
+    def G400to600(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_400to600_13TeV/*.avro").map(_._1.datum)
+    def G600toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_600toInf_13TeV/*.avro").map(_._1.datum)
     def Ttantitop(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ST_t_channel_antitop_4f_inclusiveDecays_13TeV_*/*.avro").map(_._1.datum)
     def Tttop(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ST_t_channel_top_4f_inclusiveDecays_13TeV_*/*.avro").map(_._1.datum)
     def TtWantitop(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ST_tW_antitop_5f_inclusiveDecays_13TeV_*/*.avro").map(_._1.datum)
@@ -106,25 +106,15 @@ object SkimWorkflow {
        (xs*1000*event.GenEvtInfo.weight)/weight
     }
 
-    abstract class InfoVars(var runNum: Long, var lumiSec: Long, var evtNum: Long, var metfilter: Long, var scale1fb: Double, var evtWeight: Double, var pfmet: Double, var pfmetphi: Double, var puppet: Double, var puppetphi: Double, var fakepfmet: Double, var fakepfmetphi: Double, var fakepuppet: Double, var fakepuppetphi: Double) extends Product
-    abstract class GenEvtInfoVars(var genVPt: Double, var genVPhi: Double) extends Product
-    abstract class MuonVars(var pt: Double, var eta: Double, var phi: Double, var m: Double) extends Product
-    abstract class ElectronVars(var pt: Double, var eta: Double, var phi: Double, var m: Double) extends Product
-    abstract class TauVars(var pt: Double, var eta: Double, var phi: Double) extends Product
-    abstract class PhotonVars(var NLoose: Int, var NMedium: Int, var pt: Double, var eta: Double, var phi: Double) extends Product
-    abstract class JetVars(var N: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var NdR15: Int, var NbtagLdR15: Int, var mindPhi: Double, var mindFPhi: Double) extends Product
-    abstract class VJetVars(var N: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var tau21: Double, var tau32: Double, var msd: Double, var minsubcsv: Double, var maxsubcsv: Double) extends Product
-    abstract class AllVars(var infovars: InfoVars = null, var genevtinfovars: GenEvtInfoVars = null, var muonvars: MuonVars = null, var electronvars: ElectronVars = null, var tauvars: TauVars = null, var photonvars: PhotonVars = null, var jetvars: JetVars = null, var vjetvars: VJetVars = null) extends Product
-
-    //
-    //val xsecWW = skimWorkFlow.xsWW
-    //val nevtsWW = rdd.
-    //val rdd_filtered = rdd.filter(hasgoodJson).filter(_.Info.hasGoodPV).flatMap(runMonoX)
-    //val rdd_filtered = rdd.filter(hasgoodJson).filter(_.Info.hasGoodPV).flatMap(runMonoX(_, xsecWW, nevtsWW))
-    //val rdd_filtered = rdd.filter(_.Info.hasGoodPV).flatMap(runMonoX)
-    //val rdd_todf = rdd_filtered.toDF()
-    //println(rdd_todf.schema)
-    //rdd_todf.write.parquet("outputDirectory")
+    case class InfoVars(var runNum: Long, var lumiSec: Long, var evtNum: Long, var metfilter: Long, var scale1fb: Double, var evtWeight: Double, var pfmet: Double, var pfmetphi: Double, var puppet: Double, var puppetphi: Double, var fakepfmet: Double, var fakepfmetphi: Double, var fakepuppet: Double, var fakepuppetphi: Double)
+    case class GenEvtInfoVars(var genVPt: Double, var genVPhi: Double)
+    case class MuonVars(var pt: Double, var eta: Double, var phi: Double, var m: Double)
+    case class ElectronVars(var pt: Double, var eta: Double, var phi: Double, var m: Double) 
+    case class TauVars(var pt: Double, var eta: Double, var phi: Double) 
+    case class PhotonVars(var NLoose: Int, var NMedium: Int, var pt: Double, var eta: Double, var phi: Double) 
+    case class JetVars(var N: Int,  var NdR15: Int, var NbtagLdR15: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var mindPhi: Double, var mindFPhi: Double) 
+    case class VJetVars(var N: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var tau21: Double, var tau32: Double, var msd: Double, var minsubcsv: Double, var maxsubcsv: Double)
+    case class AllVars(var infovars: InfoVars = null, var genevtinfovars: GenEvtInfoVars = null, var muonvars: MuonVars = null, var electronvars: ElectronVars = null, var tauvars: TauVars = null, var photonvars: PhotonVars = null, var jetvars: JetVars = null, var vjetvars: VJetVars = null)
 
     def runMonoX(event: Events, xsec: Double, nevts: Double) = {
 
@@ -140,9 +130,9 @@ object SkimWorkflow {
       val filteredJets = event.AK4Puppi.filter(filterJet)
       val filteredVJets = event.CA15Puppi.filter(filterVJet)
 
-      val allvars = create[AllVars](null, null, null, null, null, null, null, null)
+      val allvars = AllVars(null, null, null, null, null, null, null, null)
 
-      allvars.infovars = create[InfoVars](0.0, 0.0, 0.0, 0.0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+      allvars.infovars = InfoVars(0, 0, 0, 0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
       allvars.infovars.runNum = event.Info.runNum
       allvars.infovars.lumiSec = event.Info.lumiSec	      
       allvars.infovars.evtNum = event.Info.evtNum
@@ -159,11 +149,11 @@ object SkimWorkflow {
       val vpuppet = LorentzVector(event.Info.puppETC,0,event.Info.puppETCphi,0)
       val vpfmet = LorentzVector(event.Info.pfMETC,0,event.Info.pfMETCphi,0)
       
-      allvars.genevtinfovars = create[GenEvtInfoVars](0.0, 0.0)
+      allvars.genevtinfovars = GenEvtInfoVars(0.0, 0.0)
 
       var vmuon = LorentzVector(0,0,0,0)
       if (!filteredMuons.isEmpty) {
-        allvars.muonvars = create[MuonVars](0.0, 0.0, 0.0, 0.0)
+        allvars.muonvars = MuonVars(0.0, 0.0, 0.0, 0.0)
         val m = filteredMuons.maxBy(_.pt)
         allvars.muonvars.pt = m.pt
 	allvars.muonvars.eta = m.eta
@@ -174,7 +164,7 @@ object SkimWorkflow {
 
       var velectron = LorentzVector(0,0,0,0)
       if (!filteredElectrons.isEmpty) {
-        allvars.electronvars = create[ElectronVars](0.0, 0.0, 0.0, 0.0)
+        allvars.electronvars = ElectronVars(0.0, 0.0, 0.0, 0.0)
         val e = filteredElectrons.maxBy(_.pt)
         allvars.electronvars.pt = e.pt
         allvars.electronvars.eta = e.eta
@@ -184,7 +174,7 @@ object SkimWorkflow {
       }
 
       if (!filteredTaus.isEmpty) {
-        allvars.tauvars = create[TauVars](0.0, 0.0, 0.0)
+        allvars.tauvars = TauVars(0.0, 0.0, 0.0)
         val t = filteredTaus.maxBy(_.pt)
         allvars.tauvars.pt = t.pt
         allvars.tauvars.eta = t.eta
@@ -192,7 +182,7 @@ object SkimWorkflow {
       }
 
       if (!filteredPhotons.isEmpty) {
-        allvars.photonvars = create[PhotonVars](0.0, 0.0, 0.0, 0.0, 0.0)
+        allvars.photonvars = PhotonVars(0, 0, 0.0, 0.0, 0.0)
         val p = filteredPhotons.maxBy(_.pt)
         allvars.photonvars.pt = p.pt
         allvars.photonvars.eta = p.eta
@@ -203,7 +193,7 @@ object SkimWorkflow {
       var vjet = LorentzVector(0, 0, 0, 0)
 
       if (!filteredVJets.isEmpty) {
-        allvars.vjetvars = create[VJetVars](0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        allvars.vjetvars = VJetVars(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	val v = filteredVJets.maxBy(_.pt)
         val vadd = event.AddCA15Puppi.find(puppijet => event.CA15Puppi(puppijet.index.toInt) == v) match {
          case Some(puppijet) => puppijet
@@ -230,7 +220,7 @@ object SkimWorkflow {
       var jet = LorentzVector(0,0,0,0)
 
       if (!filteredJets.isEmpty) {
-        allvars.jetvars = create[JetVars](0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
+        allvars.jetvars = JetVars(0, 0, 0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
         val j = filteredJets.maxBy(_.pt)
 	var pdPhi = 999.99
 	var pdFPhi = 999.99
