@@ -102,8 +102,8 @@ object SkimWorkflow {
     val CSVL = 0.605
 
     // Check GenInfo (for MC only)
-    def loadGenInfo(event: Events, xs: Double, weight: Double) = {
-       (xs*1000*event.GenEvtInfo.weight)/weight
+    def loadGenInfo(event: MCEvents, xs: Double, weight: Double) = {
+       (xs*1000*event.getGenEvtInfo.weight)/weight
     }
 
     case class InfoVars(var runNum: Long, var lumiSec: Long, var evtNum: Long, var metfilter: Long, var scale1fb: Double, var evtWeight: Double, var pfmet: Double, var pfmetphi: Double, var puppet: Double, var puppetphi: Double, var fakepfmet: Double, var fakepfmetphi: Double, var fakepuppet: Double, var fakepuppetphi: Double)
@@ -123,31 +123,31 @@ object SkimWorkflow {
       // btag SFs missing
       // trigger effs missing
 
-      val filteredMuons = event.Muon.filter(filterMuon)
-      val filteredElectrons = event.Electron.filter(filterElectron(_, event.Info.rhoIso))
-      val filteredTaus = event.Tau.filter(filterTau)
-      val filteredPhotons = event.Photon.filter(filterPhoton(_, event.Info.rhoIso))
-      val filteredJets = event.AK4Puppi.filter(filterJet)
-      val filteredVJets = event.CA15Puppi.filter(filterVJet)
+      val filteredMuons = event.getMuon.filter(filterMuon)
+      val filteredElectrons = event.getElectron.filter(filterElectron(_, event.getInfo.rhoIso))
+      val filteredTaus = event.getTau.filter(filterTau)
+      val filteredPhotons = event.getPhoton.filter(filterPhoton(_, event.getInfo.rhoIso))
+      val filteredJets = event.getAK4Puppi.filter(filterJet)
+      val filteredVJets = event.getCA15Puppi.filter(filterVJet)
 
       val allvars = AllVars(null, null, null, null, null, null, null, null)
 
       allvars.infovars = InfoVars(0, 0, 0, 0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-      allvars.infovars.runNum = event.Info.runNum
-      allvars.infovars.lumiSec = event.Info.lumiSec	      
-      allvars.infovars.evtNum = event.Info.evtNum
-      allvars.infovars.metfilter = event.Info.metFilterFailBits
-      allvars.infovars.pfmet = event.Info.pfMETC
-      allvars.infovars.pfmetphi = event.Info.pfMETCphi
-      allvars.infovars.puppet = event.Info.puppETC
-      allvars.infovars.puppetphi = event.Info.puppETCphi
-      allvars.infovars.fakepfmet = event.Info.pfMETC
-      allvars.infovars.fakepfmetphi = event.Info.pfMETCphi
-      allvars.infovars.fakepuppet = event.Info.puppETC
-      allvars.infovars.fakepuppetphi = event.Info.puppETCphi
+      allvars.infovars.runNum = event.getInfo.runNum
+      allvars.infovars.lumiSec = event.getInfo.lumiSec	      
+      allvars.infovars.evtNum = event.getInfo.evtNum
+      allvars.infovars.metfilter = event.getInfo.metFilterFailBits
+      allvars.infovars.pfmet = event.getInfo.pfMETC
+      allvars.infovars.pfmetphi = event.getInfo.pfMETCphi
+      allvars.infovars.puppet = event.getInfo.puppETC
+      allvars.infovars.puppetphi = event.getInfo.puppETCphi
+      allvars.infovars.fakepfmet = event.getInfo.pfMETC
+      allvars.infovars.fakepfmetphi = event.getInfo.pfMETCphi
+      allvars.infovars.fakepuppet = event.getInfo.puppETC
+      allvars.infovars.fakepuppetphi = event.getInfo.puppETCphi
 
-      val vpuppet = LorentzVector(event.Info.puppETC,0,event.Info.puppETCphi,0)
-      val vpfmet = LorentzVector(event.Info.pfMETC,0,event.Info.pfMETCphi,0)
+      val vpuppet = LorentzVector(event.getInfo.puppETC,0,event.getInfo.puppETCphi,0)
+      val vpfmet = LorentzVector(event.getInfo.pfMETC,0,event.getInfo.pfMETCphi,0)
       
       allvars.genevtinfovars = GenEvtInfoVars(0.0, 0.0)
 
@@ -195,7 +195,7 @@ object SkimWorkflow {
       if (!filteredVJets.isEmpty) {
         allvars.vjetvars = VJetVars(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	val v = filteredVJets.maxBy(_.pt)
-        val vadd = event.AddCA15Puppi.find(puppijet => event.CA15Puppi(puppijet.index.toInt) == v) match {
+        val vadd = event.getAddCA15Puppi.find(puppijet => event.getCA15Puppi(puppijet.index.toInt) == v) match {
          case Some(puppijet) => puppijet
          case None => throw new Exception()
        }
@@ -275,9 +275,9 @@ object SkimWorkflow {
       lumiPair exists {case (start, end) => start <= lumiSec && lumiSec <= end}
 
     def goodEvent(event: Events) = {
-       val lRun = new Tuple2(event.Info.runNum,event.Info.lumiSec)
-       val lumiPair: Seq[(Long, Long)] = runlumiLookup.getOrElse(event.Info.runNum, Seq[(Long, Long)]()) 
-       eventInLumi(event.Info.lumiSec, lumiPair)
+       val lRun = new Tuple2(event.getInfo.runNum,event.getInfo.lumiSec)
+       val lumiPair: Seq[(Long, Long)] = runlumiLookup.getOrElse(event.getInfo.runNum, Seq[(Long, Long)]()) 
+       eventInLumi(event.getInfo.lumiSec, lumiPair)
     }
 
     // In Spark:
