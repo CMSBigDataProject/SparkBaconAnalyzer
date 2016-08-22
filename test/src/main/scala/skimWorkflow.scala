@@ -116,7 +116,7 @@ object SkimWorkflow {
     case class VJetVars(var N: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var tau21: Double, var tau32: Double, var msd: Double, var minsubcsv: Double, var maxsubcsv: Double)
     case class AllVars(var infovars: InfoVars = null, var genevtinfovars: GenEvtInfoVars = null, var muonvars: MuonVars = null, var electronvars: ElectronVars = null, var tauvars: TauVars = null, var photonvars: PhotonVars = null, var jetvars: JetVars = null, var vjetvars: VJetVars = null)
 
-    def runMonoX(event: Events, xsec: Double, nevts: Double) = {
+    def runMonoX(event: AnyEvents, xsec: Double, nevts: Double) = {
 
       // trigger information missing
       // lepton SFs missing
@@ -195,7 +195,7 @@ object SkimWorkflow {
       if (!filteredVJets.isEmpty) {
         allvars.vjetvars = VJetVars(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	val v = filteredVJets.maxBy(_.pt)
-        val vadd = event.getAddCA15Puppi.find(puppijet => event.getCA15Puppi(puppijet.index.toInt) == v) match {
+        val vadd = event.getAddCA15Puppi.find(puppijet => event.getCA15Puppi.apply(puppijet.index.toInt) == v) match {
          case Some(puppijet) => puppijet
          case None => throw new Exception()
        }
@@ -274,7 +274,7 @@ object SkimWorkflow {
     def eventInLumi(lumiSec: Long, lumiPair: Seq[(Long, Long)]): Boolean =
       lumiPair exists {case (start, end) => start <= lumiSec && lumiSec <= end}
 
-    def goodEvent(event: Events) = {
+    def goodEvent(event: AnyEvents) = {
        val lRun = new Tuple2(event.getInfo.runNum,event.getInfo.lumiSec)
        val lumiPair: Seq[(Long, Long)] = runlumiLookup.getOrElse(event.getInfo.runNum, Seq[(Long, Long)]()) 
        eventInLumi(event.getInfo.lumiSec, lumiPair)
