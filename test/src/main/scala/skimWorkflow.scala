@@ -361,7 +361,7 @@ object SkimWorkflow {
         jet = LorentzVector(j.pt,j.eta,j.phi,j.mass)
       }
 
-      if(allvars.infovars.pfmet > 200. || allvars.infovars.puppet > 200. || allvars.infovars.fakepuppet > 200. || allvars.infovars.fakepfmet > 200.){
+      if(allvars.infovars.pfmet > 200.0 || allvars.infovars.puppet > 200.0 || allvars.infovars.fakepuppet > 200.0 || allvars.infovars.fakepfmet > 200.0){
         List(allvars)
       }
       else{
@@ -702,9 +702,9 @@ object SkimWorkflow {
       // Loose photon ID (https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentelse ificationRun2#PHYS14_selections_PU20_bunch_cro)                                             
       // if !(photon.passElectronVeto) false  // conversion safe electron veto                                                                                                                                           \
                                                                                                                                                                                                  
-      val chHadIso  = Math.max(photon.chHadIso  - rho*phoEffArea(photon.scEta, 0), 0.)
-      val neuHadIso = Math.max(photon.neuHadIso - rho*phoEffArea(photon.scEta, 1), 0.)
-      val phoIso    = Math.max(photon.gammaIso  - rho*phoEffArea(photon.scEta, 2), 0.)
+      val chHadIso  = Math.max(photon.chHadIso  - rho*phoEffArea(photon.scEta, 0), 0.0)
+      val neuHadIso = Math.max(photon.neuHadIso - rho*phoEffArea(photon.scEta, 1), 0.0)
+      val phoIso    = Math.max(photon.gammaIso  - rho*phoEffArea(photon.scEta, 2), 0.0)
 
       if(Math.abs(photon.scEta) <= 1.479) {
         if(photon.sthovere      > 0.05)                                     false
@@ -727,9 +727,9 @@ object SkimWorkflow {
       // Medium photon ID (https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentelse ificationRun2#PHYS14_selections_PU20_bunch_cro)                                                                                                
       // if !(photon.passElectronVeto) false  // conversion safe electron veto                                                                                                                                           \
                                                                                                                                                                                                                                   
-      val chHadIso  = Math.max(photon.chHadIso  - rho*phoEffArea(photon.scEta, 0), 0.)
-      val neuHadIso = Math.max(photon.neuHadIso - rho*phoEffArea(photon.scEta, 1), 0.)
-      val phoIso    = Math.max(photon.gammaIso  - rho*phoEffArea(photon.scEta, 2), 0.)
+      val chHadIso  = Math.max(photon.chHadIso  - rho*phoEffArea(photon.scEta, 0), 0.0)
+      val neuHadIso = Math.max(photon.neuHadIso - rho*phoEffArea(photon.scEta, 1), 0.0)
+      val phoIso    = Math.max(photon.gammaIso  - rho*phoEffArea(photon.scEta, 2), 0.0)
 
       if(Math.abs(photon.scEta) <= 1.479) {
         if(photon.sthovere      > 0.05)                                     false
