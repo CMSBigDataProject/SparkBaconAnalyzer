@@ -373,7 +373,7 @@ object SkimWorkflow {
     //if(event.AK4Puppi.filter(filterJet).maxBy(_.pt).pt > 250) true
 
     // Json and Lumi
-     val runlumiLookup: Map[Long, Seq[(Long, Long)]] = Json.parse(new java.util.Scanner(new java.io.FileInputStream("/home/csuarez/bigdata/SparkBaconAnalyzer/test/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_v2.txt")).useDelimiter("\\A").next) match {
+     val runlumiLookup: Map[Long, Seq[(Long, Long)]] = Json.parse(new java.util.Scanner(new java.io.FileInputStream("Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_v2.txt")).useDelimiter("\\A").next) match {
        case Some(JsonObject(runlumi @ _*)) =>
          runlumi map {
 	   case (JsonString(run), JsonArray(lumi @ _*)) =>
