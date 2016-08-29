@@ -11,158 +11,154 @@ import org.dianahep.histogrammar.json._
 
 object SkimWorkflow {
 
-    def setAvroSchema(sc: SparkContext, schema: String) : Unit = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",schema) //DataEvents.getClassSchema.toString)
-    }
-
     // RDDs
-    def SingleElectron(sc: SparkContext) : RDD[(AvroKey[DataEvents], NullWritable)] = { 
-       setAvroSchema(sc,DataEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[DataEvents], NullWritable, MyKeyInputFormat[DataEvents]]("/user/HEP/SingleElectron*/*.avro")
+    def SingleElectron(sc: SparkContext) : RDD[DataEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",DataEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/SingleElectron*/*.avro",classOf[MyKeyInputFormat[DataEvents]], classOf[AvroKey[DataEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)  
     }
-    def MET(sc: SparkContext) : RDD[(AvroKey[DataEvents], NullWritable)] = {
-       setAvroSchema(sc,DataEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[DataEvents], NullWritable, MyKeyInputFormat[DataEvents]]("/user/HEP/METRun2015D_16Dec2015_v1/*.avro")
+    def MET(sc: SparkContext) : RDD[DataEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",DataEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/METRun2015D_16Dec2015_v1/*.avro",classOf[MyKeyInputFormat[DataEvents]], classOf[AvroKey[DataEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def SinglePhoton(sc: SparkContext) : RDD[(AvroKey[DataEvents], NullWritable)] = {
-       setAvroSchema(sc,DataEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[DataEvents], NullWritable, MyKeyInputFormat[DataEvents]]("/user/HEP/SinglePhoton*/*.avro")
+    def SinglePhoton(sc: SparkContext) : RDD[DataEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",DataEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/SinglePhoton*/*.avro",classOf[MyKeyInputFormat[DataEvents]], classOf[AvroKey[DataEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def	QCD100to200(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/QCD_HT100to200*/*.avro")
+    def	QCD100to200(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT100to200*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def QCD200to300(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/QCD_HT200to300*/*.avro")
+    def QCD200to300(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT200to300*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def QCD300to500(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/QCD_HT300to500*/*.avro")
+    def QCD300to500(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT300to500*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def QCD500to700(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/QCD_HT500to700*/*.avro")
+    def QCD500to700(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT500to700*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def QCD700to1000(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/QCD_HT700to1000*/*.avro")
+    def QCD700to1000(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT700to1000*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def QCD1000to1500(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/QCD_HT1000to1500*/*.avro")
+    def QCD1000to1500(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT1000to1500*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum) 
     }
-    def QCD1500to2000(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/QCD_HT1500to2000*/*.avro")
+    def QCD1500to2000(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT1500to2000*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def QCD2000toInf(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/QCD_HT2000toInf*/*.avro")
+    def QCD2000toInf(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT2000toInf*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def	W100to200(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/WJetsToLNu_HT_100to200_13TeV*/*.avro")
+    def	W100to200(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_100to200_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def W200to400(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/WJetsToLNu_HT_200to400_13TeV*/*.avro")
+    def W200to400(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_200to400_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def W400to600(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/WJetsToLNu_HT_400to600_13TeV*/*.avro")
+    def W400to600(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_400to600_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def W600toInf(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/WJetsToLNu_HT_600toInf_13TeV*/*.avro")
+    def W600toInf(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_600toInf_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def Z100to200(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/ZJetsToNuNu_HT_100to200_13TeV/*.avro")
+    def Z100to200(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_100to200_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def Z200to400(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/ZJetsToNuNu_HT_200to400_13TeV*/*.avro")
+    def Z200to400(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_200to400_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def Z400to600(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/ZJetsToNuNu_HT_400to600_13TeV*/*.avro")
+    def Z400to600(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_400to600_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     } 
-    def Z600toInf(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/ZJetsToNuNu_HT_600toInf_13TeV*/*.avro")
+    def Z600toInf(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_600toInf_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     } 
-    def	DY100to200(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/DYJetsToLL_M_50_HT_100to200_13TeV_2/*.avro")
+    def	DY100to200(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_100to200_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def DY200to400(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/DYJetsToLL_M_50_HT_200to400_13TeV_2/*.avro")
+    def DY200to400(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_200to400_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def DY400to600(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/DYJetsToLL_M_50_HT_400to600_13TeV_2/*.avro")
+    def DY400to600(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_400to600_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def DY600toInf(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/DYJetsToLL_M_50_HT_600toInf_13TeV_2/*.avro")
+    def DY600toInf(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_600toInf_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def G100to200(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/GJets_HT_100to200_13TeV/*.avro")
+    def G100to200(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/GJets_HT_100to200_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def G200to400(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/GJets_HT_200to400_13TeV/*.avro")
+    def G200to400(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/GJets_HT_200to400_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def G400to600(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/GJets_HT_400to600_13TeV/*.avro")
+    def G400to600(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/GJets_HT_400to600_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def G600toInf(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/GJets_HT_600toInf_13TeV/*.avro")
+    def G600toInf(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/GJets_HT_600toInf_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def Ttantitop(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/ST_t_channel_antitop_4f_inclusiveDecays_13TeV_*/*.avro")
+    def Ttantitop(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ST_t_channel_antitop_4f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def Tttop(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/ST_t_channel_top_4f_inclusiveDecays_13TeV_*/*.avro")
+    def Tttop(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ST_t_channel_top_4f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def TtWantitop(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/ST_tW_antitop_5f_inclusiveDecays_13TeV_*/*.avro")
+    def TtWantitop(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ST_tW_antitop_5f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def TtWtop(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = { 
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/ST_tW_top_5f_inclusiveDecays_13TeV_*/*.avro")
+    def TtWtop(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ST_tW_top_5f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def TT(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/TTJets_13TeV*/*.avro")
+    def TT(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/TTJets_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def TTG(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/TTGJets_13TeV*/*.avro")
+    def TTG(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/TTGJets_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def TTZ(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/TTZToLLNuNu*/*.avro")
+    def TTZ(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/TTZToLLNuNu*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def WW(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/WW_13TeV_pythia8/*.avro")
+    def WW(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WW_13TeV_pythia8/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def WZ(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/WZ_13TeV_pythia8/*.avro")
+    def WZ(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WZ_13TeV_pythia8/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def ZZ(sc: SparkContext) : RDD[(AvroKey[MCEvents], NullWritable)] = {
-       setAvroSchema(sc,MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile[AvroKey[MCEvents], NullWritable, MyKeyInputFormat[MCEvents]]("/user/HEP/ZZ_13TeV_pythia8/*.avro")
+    def ZZ(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ZZ_13TeV_pythia8/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
 
     // X-sec
