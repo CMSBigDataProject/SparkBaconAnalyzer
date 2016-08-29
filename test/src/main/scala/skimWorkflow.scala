@@ -12,8 +12,7 @@ import org.dianahep.histogrammar.json._
 object SkimWorkflow {
 
     def setAvroSchema(sc: SparkContext, schema: String) : Unit = {
-       sc.hadoopConfiguration.set("avro.input.schema",schema) //DataEvents.getClassSchema.toString)
-       sc.hadoopConfiguration.set("avro.output.schema",schema)
+       sc.hadoopConfiguration.set("avro.schema.input.key",schema) //DataEvents.getClassSchema.toString)
     }
 
     // RDDs
