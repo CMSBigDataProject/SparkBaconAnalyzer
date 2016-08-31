@@ -1,6 +1,7 @@
 import org.apache.avro.mapred.AvroKey
 import org.apache.hadoop.io.NullWritable
 import org.apache.spark.SparkContext
+import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.Row
 import org.apache.spark.rdd._
 import scala.collection.JavaConversions._
@@ -12,153 +13,13 @@ import org.dianahep.histogrammar.json._
 object SkimWorkflow {
 
     // RDDs
-    def SingleElectron(sc: SparkContext) : RDD[DataEvents] = { 
+    def LoadData(sc: SparkContext, avroPath: String) : RDD[DataEvents] = {
        sc.hadoopConfiguration.set("avro.schema.input.key",DataEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/SingleElectron*/*.avro",classOf[MyKeyInputFormat[DataEvents]], classOf[AvroKey[DataEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)  
+       sc.newAPIHadoopFile(avroPath,classOf[MyKeyInputFormat[DataEvents]], classOf[AvroKey[DataEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
-    def MET(sc: SparkContext) : RDD[DataEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",DataEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/METRun2015D_16Dec2015_v1/*.avro",classOf[MyKeyInputFormat[DataEvents]], classOf[AvroKey[DataEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def SinglePhoton(sc: SparkContext) : RDD[DataEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",DataEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/SinglePhoton*/*.avro",classOf[MyKeyInputFormat[DataEvents]], classOf[AvroKey[DataEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def	QCD100to200(sc: SparkContext) : RDD[MCEvents] = {
+    def LoadMC(sc: SparkContext,avroPath: String) : RDD[MCEvents] = {
        sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/QCD_HT100to200*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def QCD200to300(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/QCD_HT200to300*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def QCD300to500(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/QCD_HT300to500*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def QCD500to700(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/QCD_HT500to700*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def QCD700to1000(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/QCD_HT700to1000*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def QCD1000to1500(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/QCD_HT1000to1500*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum) 
-    }
-    def QCD1500to2000(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/QCD_HT1500to2000*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def QCD2000toInf(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/QCD_HT2000toInf*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def	W100to200(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_100to200_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def W200to400(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_200to400_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def W400to600(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_400to600_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def W600toInf(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_600toInf_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def Z100to200(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_100to200_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def Z200to400(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_200to400_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def Z400to600(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_400to600_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    } 
-    def Z600toInf(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_600toInf_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    } 
-    def	DY100to200(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_100to200_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def DY200to400(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_200to400_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def DY400to600(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_400to600_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def DY600toInf(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_600toInf_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def G100to200(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/GJets_HT_100to200_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def G200to400(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/GJets_HT_200to400_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def G400to600(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/GJets_HT_400to600_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def G600toInf(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/GJets_HT_600toInf_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def Ttantitop(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/ST_t_channel_antitop_4f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def Tttop(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/ST_t_channel_top_4f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def TtWantitop(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/ST_tW_antitop_5f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def TtWtop(sc: SparkContext) : RDD[MCEvents] = { 
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/ST_tW_top_5f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def TT(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/TTJets_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def TTG(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/TTGJets_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def TTZ(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/TTZToLLNuNu*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def WW(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/WW_13TeV_pythia8/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def WZ(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/WZ_13TeV_pythia8/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
-    }
-    def ZZ(sc: SparkContext) : RDD[MCEvents] = {
-       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
-       sc.newAPIHadoopFile("/user/HEP/ZZ_13TeV_pythia8/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+       sc.newAPIHadoopFile(avroPath,classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
     }
 
     // X-sec
@@ -215,16 +76,6 @@ object SkimWorkflow {
     def loadGenInfo(event: MCEvents, xs: Double, weight: Double) = {
        (xs*1000*event.getGenEvtInfo.weight)/weight
     }
-
-    case class InfoVars(var runNum: Long, var lumiSec: Long, var evtNum: Long, var metfilter: Long, var scale1fb: Double, var evtWeight: Double, var pfmet: Double, var pfmetphi: Double, var puppet: Double, var puppetphi: Double, var fakepfmet: Double, var fakepfmetphi: Double, var fakepuppet: Double, var fakepuppetphi: Double)
-    case class GenEvtInfoVars(var genVPt: Double, var genVPhi: Double)
-    case class MuonVars(var pt: Double, var eta: Double, var phi: Double, var m: Double)
-    case class ElectronVars(var pt: Double, var eta: Double, var phi: Double, var m: Double) 
-    case class TauVars(var pt: Double, var eta: Double, var phi: Double) 
-    case class PhotonVars(var NLoose: Int, var NMedium: Int, var pt: Double, var eta: Double, var phi: Double) 
-    case class JetVars(var N: Int,  var NdR15: Int, var NbtagLdR15: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var mindPhi: Double, var mindFPhi: Double) 
-    case class VJetVars(var N: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var tau21: Double, var tau32: Double, var msd: Double, var minsubcsv: Double, var maxsubcsv: Double)
-    case class AllVars(var infovars: InfoVars = null, var genevtinfovars: GenEvtInfoVars = null, var muonvars: MuonVars = null, var electronvars: ElectronVars = null, var tauvars: TauVars = null, var photonvars: PhotonVars = null, var jetvars: JetVars = null, var vjetvars: VJetVars = null)
 
     def runMonoX(event: AnyEvents, xsec: Double, nevts: Double) = {
 
@@ -443,64 +294,7 @@ object SkimWorkflow {
         LorentzVector(t.pt, t.eta, t.phi, t.m)
     }
 
-    abstract class selTaus(val pt: Double, val phi: Double, val eta: Double, val m: Double) extends Product
-
-    // TLorentzVector
-    trait LorentzVectorMethods {
-      def pt: Double
-      def phi: Double
-      def eta: Double
-      def m: Double
-
-      def px = Math.abs(pt)*Math.cos(phi) 
-      def py = Math.abs(pt)*Math.sin(phi) 
-      def pz = Math.abs(pt)*Math.sinh(eta)
-      def e = {
-        if(m >= 0) Math.sqrt(px*px+py*py+pz*pz+m*m)
-        else Math.sqrt(Math.max(px*px+py*py+pz*pz-m*m,0))
-      }
-
-      def +(that: LorentzVectorMethods) = {
-        val px = this.px + that.px
-        val py = this.py + that.py
-        val pz = this.pz + that.pz
-        val e = this.e + that.e
-        val (pt, phi, pta, m) = LorentzVectorMethods.setptphietam(px, py, pz, e)
-        LorentzVector(pt, phi, eta, m)
-      }
-
-      def DeltaR(that: LorentzVectorMethods) = {
-        val deta = this.eta - that.eta
-	val dphi = if(this.phi - that.phi >= Math.PI) this.phi - that.phi - Math.PI
-	           else if(this.phi - that.phi < -Math.PI) this.phi - that.phi + Math.PI
-		   else this.phi - that.phi
-	Math.sqrt(deta*deta + dphi*dphi)
-      }
-
-    }
-
-    object LorentzVectorMethods {
-      def setptphietam(px: Double, py: Double, pz: Double, e: Double) = {
-        val pt = Math.sqrt(px*px + py*py)
-	val p = Math.sqrt(px*px + py*py + pz*pz)
-        val m = Math.sqrt(e*e - px*px - py*py - pz*pz)
-        val eta = 0.5*Math.log((p + pz)/(p - pz))
-        val phi = Math.atan2(py, px)
-        (pt, phi, eta, m)
-      }
-    }
-
-    case class LorentzVector(pt: Double, phi: Double, eta: Double, m: Double) extends LorentzVectorMethods with Ordered[LorentzVector] {
-      // return 0 if the same, negative if this < that, positive if this > that
-      def compare (that: LorentzVector) = {
-        if (this.pt == that.pt)
-          0
-        else if (this.pt > that.pt)
-          1
-        else
-	 -1
-      }
-    } 
+    //abstract class selTaus(val pt: Double, val phi: Double, val eta: Double, val m: Double) extends Product
 
     //Object LorentzVector {
     //def frompxpypze(px: Double, py: Double, pz: Double, e: Double) = {
@@ -755,4 +549,63 @@ object SkimWorkflow {
       pMatch
     }
 
+
+  def main(args: Array[String]) {
+
+    println(s"\nExample submit command: spark-submit --class SkimWorkflow --master yarn --queue production --num-executors 30 --executor-cores 3 --executor-memory 10g target/scala-2.11/BaconAnalysis-assembly-2.0.jar\n")
+
+    val t0 = System.nanoTime()
+
+    run()
+
+    val t1 = System.nanoTime()
+    println("Elapsed time: " + (t1 - t0)/1000000000 + "s")
+  }
+
+
+  def run() {
+
+    val spark = SparkSession.builder().appName("SkimWorkflow")
+      .config("spark.dynamicAllocation.enabled","true")
+      .config("spark.shuffle.service.enabled","true")
+      .config("spark.sql.codegen.wholeStage", "true")
+      .config("spark.serializer","org.apache.spark.serializer.KryoSerializer")
+      .config("spark.kryo.classesToRegister","AnyEvents,MCEvents,DataEvents,baconhep.TAddJet,baconhep.TElectron,baconhep.TEventInfo,baconhep.TGenEventInfo,baconhep.TGenParticle,baconhep.TJet,baconhep.TMuon,baconhep.TPhoton,baconhep.TTau,baconhep.TVertex")
+      .getOrCreate()
+
+    import spark.implicits._
+
+    //put whatever you do in the spark-shell here
+    val rddTT = SkimWorkflow.loadMC(spark.sparkContext,"/user/HEP/TTJets_13TeV*/*.avro").cache()
+    val nevts = rddTT.count()
+    val xsecTT = SkimWorkflow.xsTT
+    val rdd_filteredTT = rddTT.filter(_.Info.hasGoodPV).flatMap(SkimWorkflow.runMonoX(_, xsecTT, nevts))
+
+    //call an action just to test it
+    println(rdd_filteredTT.count())
+
+    val rddMET = SkimWorkflow.loadData(spark.sparkContext,"/user/HEP/METRun2015D_16Dec2015_v1/*.avro").cache()
+
+    spark.stop()
+   }
 }	      
+case class InfoVars(var runNum: Long, var lumiSec: Long, var evtNum: Long, var metfilter: Long, var scale1fb: Double, var evtWeight: Double, var pfmet: Double, var pfmetphi: Double, var puppet: Double, var puppetphi: Double, var fakepfmet: Double, var fakepfmetphi: Double, var fakepuppet: Double, var fakepuppetphi: Double)
+case class GenEvtInfoVars(var genVPt: Double, var genVPhi: Double)
+case class MuonVars(var pt: Double, var eta: Double, var phi: Double, var m: Double)
+case class ElectronVars(var pt: Double, var eta: Double, var phi: Double, var m: Double)
+case class TauVars(var pt: Double, var eta: Double, var phi: Double)
+case class PhotonVars(var NLoose: Int, var NMedium: Int, var pt: Double, var eta: Double, var phi: Double)
+case class JetVars(var N: Int,  var NdR15: Int, var NbtagLdR15: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var mindPhi: Double, var mindFPhi: Double)
+case class VJetVars(var N: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var tau21: Double, var tau32: Double, var msd: Double, var minsubcsv: Double, var maxsubcsv: Double)
+case class AllVars(var infovars: InfoVars = null, var genevtinfovars: GenEvtInfoVars = null, var muonvars: MuonVars = null, var electronvars: ElectronVars = null, var tauvars: TauVars = null, var photonvars: PhotonVars = null, var jetvars: JetVars = null, var vjetvars: VJetVars = null)
+case class LorentzVector(pt: Double, phi: Double, eta: Double, m: Double) extends LorentzVectorMethods with Ordered[LorentzVector] {
+  // return 0 if the same, negative if this < that, positive if this > that
+  def compare (that: LorentzVector) = {
+    if (this.pt == that.pt)
+      0
+    else if (this.pt > that.pt)
+      1
+    else
+     -1
+  }
+}
