@@ -7,8 +7,8 @@ import java.util.List;
 
 @SuppressWarnings("all")
 @org.apache.avro.specific.AvroGenerated
-public class Events extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord {
-  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"Events\",\"fields\":[{\"name\":\"Info\",\"type\":{\"type\":\"record\",\"name\":\"TEventInfo\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"runNum\",\"type\":\"long\"},{\"name\":\"evtNum\",\"type\":\"long\"},{\"name\":\"lumiSec\",\"type\":\"long\"},{\"name\":\"metFilterFailBits\",\"type\":\"long\"},{\"name\":\"nPU\",\"type\":\"long\"},{\"name\":\"nPUm\",\"type\":\"long\"},{\"name\":\"nPUp\",\"type\":\"long\"},{\"name\":\"nPUmean\",\"type\":\"float\"},{\"name\":\"nPUmeanm\",\"type\":\"float\"},{\"name\":\"nPUmeanp\",\"type\":\"float\"},{\"name\":\"pvx\",\"type\":\"float\"},{\"name\":\"pvy\",\"type\":\"float\"},{\"name\":\"pvz\",\"type\":\"float\"},{\"name\":\"bsx\",\"type\":\"float\"},{\"name\":\"bsy\",\"type\":\"float\"},{\"name\":\"bsz\",\"type\":\"float\"},{\"name\":\"pfMET\",\"type\":\"float\"},{\"name\":\"pfMETphi\",\"type\":\"float\"},{\"name\":\"pfMETCov00\",\"type\":\"float\"},{\"name\":\"pfMETCov01\",\"type\":\"float\"},{\"name\":\"pfMETCov11\",\"type\":\"float\"},{\"name\":\"pfMETC\",\"type\":\"float\"},{\"name\":\"pfMETCphi\",\"type\":\"float\"},{\"name\":\"pfMETCCov00\",\"type\":\"float\"},{\"name\":\"pfMETCCov01\",\"type\":\"float\"},{\"name\":\"pfMETCCov11\",\"type\":\"float\"},{\"name\":\"puppET\",\"type\":\"float\"},{\"name\":\"puppETphi\",\"type\":\"float\"},{\"name\":\"puppETCov00\",\"type\":\"float\"},{\"name\":\"puppETCov01\",\"type\":\"float\"},{\"name\":\"puppETCov11\",\"type\":\"float\"},{\"name\":\"puppETC\",\"type\":\"float\"},{\"name\":\"puppETCphi\",\"type\":\"float\"},{\"name\":\"puppETCCov00\",\"type\":\"float\"},{\"name\":\"puppETCCov01\",\"type\":\"float\"},{\"name\":\"puppETCCov11\",\"type\":\"float\"},{\"name\":\"alpacaMET\",\"type\":\"float\"},{\"name\":\"alpacaMETphi\",\"type\":\"float\"},{\"name\":\"pcpMET\",\"type\":\"float\"},{\"name\":\"pcpMETphi\",\"type\":\"float\"},{\"name\":\"rhoIso\",\"type\":\"float\"},{\"name\":\"rhoJet\",\"type\":\"float\"},{\"name\":\"hasGoodPV\",\"type\":\"boolean\"}]}},{\"name\":\"GenEvtInfo\",\"type\":{\"type\":\"record\",\"name\":\"TGenEventInfo\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"id_1\",\"type\":\"int\"},{\"name\":\"id_2\",\"type\":\"int\"},{\"name\":\"x_1\",\"type\":\"float\"},{\"name\":\"x_2\",\"type\":\"float\"},{\"name\":\"scalePDF\",\"type\":\"float\"},{\"name\":\"xs\",\"type\":\"float\"},{\"name\":\"weight\",\"type\":\"float\"}]}},{\"name\":\"GenParticle\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TGenParticle\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"parent\",\"type\":\"int\"},{\"name\":\"pdgId\",\"type\":\"int\"},{\"name\":\"status\",\"type\":\"int\"},{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"mass\",\"type\":\"float\"},{\"name\":\"y\",\"type\":\"float\"}]}}},{\"name\":\"Electron\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TElectron\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"scEt\",\"type\":\"float\"},{\"name\":\"scEta\",\"type\":\"float\"},{\"name\":\"scPhi\",\"type\":\"float\"},{\"name\":\"ecalEnergy\",\"type\":\"float\"},{\"name\":\"pfPt\",\"type\":\"float\"},{\"name\":\"pfEta\",\"type\":\"float\"},{\"name\":\"pfPhi\",\"type\":\"float\"},{\"name\":\"trkIso\",\"type\":\"float\"},{\"name\":\"ecalIso\",\"type\":\"float\"},{\"name\":\"hcalIso\",\"type\":\"float\"},{\"name\":\"hcalDepth1Iso\",\"type\":\"float\"},{\"name\":\"chHadIso\",\"type\":\"float\"},{\"name\":\"gammaIso\",\"type\":\"float\"},{\"name\":\"neuHadIso\",\"type\":\"float\"},{\"name\":\"puIso\",\"type\":\"float\"},{\"name\":\"ecalPFClusIso\",\"type\":\"float\"},{\"name\":\"hcalPFClusIso\",\"type\":\"float\"},{\"name\":\"puppiChHadIso\",\"type\":\"float\"},{\"name\":\"puppiGammaIso\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIso\",\"type\":\"float\"},{\"name\":\"puppiChHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiGammaIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"d0\",\"type\":\"float\"},{\"name\":\"dz\",\"type\":\"float\"},{\"name\":\"sip3d\",\"type\":\"float\"},{\"name\":\"sieie\",\"type\":\"float\"},{\"name\":\"e1x5\",\"type\":\"float\"},{\"name\":\"e2x5\",\"type\":\"float\"},{\"name\":\"e5x5\",\"type\":\"float\"},{\"name\":\"r9\",\"type\":\"float\"},{\"name\":\"eoverp\",\"type\":\"float\"},{\"name\":\"hovere\",\"type\":\"float\"},{\"name\":\"fbrem\",\"type\":\"float\"},{\"name\":\"dEtaInSeed\",\"type\":\"float\"},{\"name\":\"dEtaIn\",\"type\":\"float\"},{\"name\":\"dPhiIn\",\"type\":\"float\"},{\"name\":\"mva\",\"type\":\"float\"},{\"name\":\"q\",\"type\":\"int\"},{\"name\":\"isConv\",\"type\":\"boolean\"},{\"name\":\"nMissingHits\",\"type\":\"long\"},{\"name\":\"typeBits\",\"type\":\"long\"},{\"name\":\"fiducialBits\",\"type\":\"long\"},{\"name\":\"classification\",\"type\":\"int\"},{\"name\":\"scID\",\"type\":\"int\"},{\"name\":\"trkID\",\"type\":\"int\"}]}}},{\"name\":\"Muon\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TMuon\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"ptErr\",\"type\":\"float\"},{\"name\":\"staPt\",\"type\":\"float\"},{\"name\":\"staEta\",\"type\":\"float\"},{\"name\":\"staPhi\",\"type\":\"float\"},{\"name\":\"pfPt\",\"type\":\"float\"},{\"name\":\"pfEta\",\"type\":\"float\"},{\"name\":\"pfPhi\",\"type\":\"float\"},{\"name\":\"trkIso\",\"type\":\"float\"},{\"name\":\"ecalIso\",\"type\":\"float\"},{\"name\":\"hcalIso\",\"type\":\"float\"},{\"name\":\"chHadIso\",\"type\":\"float\"},{\"name\":\"gammaIso\",\"type\":\"float\"},{\"name\":\"neuHadIso\",\"type\":\"float\"},{\"name\":\"puIso\",\"type\":\"float\"},{\"name\":\"puppiChHadIso\",\"type\":\"float\"},{\"name\":\"puppiGammaIso\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIso\",\"type\":\"float\"},{\"name\":\"puppiChHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiGammaIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"d0\",\"type\":\"float\"},{\"name\":\"dz\",\"type\":\"float\"},{\"name\":\"sip3d\",\"type\":\"float\"},{\"name\":\"tkNchi2\",\"type\":\"float\"},{\"name\":\"muNchi2\",\"type\":\"float\"},{\"name\":\"trkKink\",\"type\":\"float\"},{\"name\":\"glbKink\",\"type\":\"float\"},{\"name\":\"trkHitFrac\",\"type\":\"float\"},{\"name\":\"chi2LocPos\",\"type\":\"float\"},{\"name\":\"segComp\",\"type\":\"float\"},{\"name\":\"caloComp\",\"type\":\"float\"},{\"name\":\"q\",\"type\":\"int\"},{\"name\":\"nValidHits\",\"type\":\"int\"},{\"name\":\"typeBits\",\"type\":\"long\"},{\"name\":\"selectorBits\",\"type\":\"long\"},{\"name\":\"pogIDBits\",\"type\":\"long\"},{\"name\":\"nTkHits\",\"type\":\"long\"},{\"name\":\"nPixHits\",\"type\":\"long\"},{\"name\":\"nTkLayers\",\"type\":\"long\"},{\"name\":\"nPixLayers\",\"type\":\"long\"},{\"name\":\"nMatchStn\",\"type\":\"long\"},{\"name\":\"trkID\",\"type\":\"int\"}]}}},{\"name\":\"Tau\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TTau\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"m\",\"type\":\"float\"},{\"name\":\"e\",\"type\":\"float\"},{\"name\":\"q\",\"type\":\"int\"},{\"name\":\"dzLeadChHad\",\"type\":\"float\"},{\"name\":\"nSignalChHad\",\"type\":\"long\"},{\"name\":\"nSignalGamma\",\"type\":\"long\"},{\"name\":\"antiEleMVA5\",\"type\":\"float\"},{\"name\":\"antiEleMVA5Cat\",\"type\":\"float\"},{\"name\":\"rawMuonRejection\",\"type\":\"float\"},{\"name\":\"rawIso3Hits\",\"type\":\"float\"},{\"name\":\"rawIsoMVA3oldDMwoLT\",\"type\":\"float\"},{\"name\":\"rawIsoMVA3oldDMwLT\",\"type\":\"float\"},{\"name\":\"rawIsoMVA3newDMwoLT\",\"type\":\"float\"},{\"name\":\"rawIsoMVA3newDMwLT\",\"type\":\"float\"},{\"name\":\"puppiChHadIso\",\"type\":\"float\"},{\"name\":\"puppiGammaIso\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIso\",\"type\":\"float\"},{\"name\":\"puppiChHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiGammaIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"hpsDisc\",\"type\":\"double\"}]}}},{\"name\":\"Photon\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TPhoton\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"scEt\",\"type\":\"float\"},{\"name\":\"scEta\",\"type\":\"float\"},{\"name\":\"scPhi\",\"type\":\"float\"},{\"name\":\"trkIso\",\"type\":\"float\"},{\"name\":\"ecalIso\",\"type\":\"float\"},{\"name\":\"hcalIso\",\"type\":\"float\"},{\"name\":\"chHadIso\",\"type\":\"float\"},{\"name\":\"gammaIso\",\"type\":\"float\"},{\"name\":\"neuHadIso\",\"type\":\"float\"},{\"name\":\"mva\",\"type\":\"float\"},{\"name\":\"hovere\",\"type\":\"float\"},{\"name\":\"sthovere\",\"type\":\"float\"},{\"name\":\"sieie\",\"type\":\"float\"},{\"name\":\"sipip\",\"type\":\"float\"},{\"name\":\"r9\",\"type\":\"float\"},{\"name\":\"fiducialBits\",\"type\":\"long\"},{\"name\":\"typeBits\",\"type\":\"long\"},{\"name\":\"scID\",\"type\":\"int\"},{\"name\":\"hasPixelSeed\",\"type\":\"boolean\"},{\"name\":\"passElectronVeto\",\"type\":\"boolean\"},{\"name\":\"isConv\",\"type\":\"boolean\"}]}}},{\"name\":\"PV\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TVertex\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"nTracksFit\",\"type\":\"long\"},{\"name\":\"ndof\",\"type\":\"float\"},{\"name\":\"chi2\",\"type\":\"float\"},{\"name\":\"x\",\"type\":\"float\"},{\"name\":\"y\",\"type\":\"float\"},{\"name\":\"z\",\"type\":\"float\"}]}}},{\"name\":\"AK4CHS\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TJet\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"t","ype\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"mass\",\"type\":\"float\"},{\"name\":\"ptRaw\",\"type\":\"float\"},{\"name\":\"unc\",\"type\":\"float\"},{\"name\":\"area\",\"type\":\"float\"},{\"name\":\"d0\",\"type\":\"float\"},{\"name\":\"dz\",\"type\":\"float\"},{\"name\":\"csv\",\"type\":\"float\"},{\"name\":\"bmva\",\"type\":\"float\"},{\"name\":\"cvb\",\"type\":\"float\"},{\"name\":\"cvl\",\"type\":\"float\"},{\"name\":\"qgid\",\"type\":\"float\"},{\"name\":\"axis2\",\"type\":\"float\"},{\"name\":\"ptD\",\"type\":\"float\"},{\"name\":\"mult\",\"type\":\"int\"},{\"name\":\"q\",\"type\":\"float\"},{\"name\":\"mva\",\"type\":\"float\"},{\"name\":\"beta\",\"type\":\"float\"},{\"name\":\"betaStar\",\"type\":\"float\"},{\"name\":\"dR2Mean\",\"type\":\"float\"},{\"name\":\"pullY\",\"type\":\"float\"},{\"name\":\"pullPhi\",\"type\":\"float\"},{\"name\":\"chPullY\",\"type\":\"float\"},{\"name\":\"chPullPhi\",\"type\":\"float\"},{\"name\":\"neuPullY\",\"type\":\"float\"},{\"name\":\"neuPullPhi\",\"type\":\"float\"},{\"name\":\"chEmFrac\",\"type\":\"float\"},{\"name\":\"neuEmFrac\",\"type\":\"float\"},{\"name\":\"chHadFrac\",\"type\":\"float\"},{\"name\":\"neuHadFrac\",\"type\":\"float\"},{\"name\":\"muonFrac\",\"type\":\"float\"},{\"name\":\"genpt\",\"type\":\"float\"},{\"name\":\"geneta\",\"type\":\"float\"},{\"name\":\"genphi\",\"type\":\"float\"},{\"name\":\"genm\",\"type\":\"float\"},{\"name\":\"partonFlavor\",\"type\":\"int\"},{\"name\":\"hadronFlavor\",\"type\":\"int\"},{\"name\":\"nCharged\",\"type\":\"long\"},{\"name\":\"nNeutrals\",\"type\":\"long\"},{\"name\":\"nParticles\",\"type\":\"long\"}]}}},{\"name\":\"AK8CHS\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TJet\"}},{\"name\":\"AddAK8CHS\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TAddJet\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"index\",\"type\":\"long\"},{\"name\":\"mass_prun\",\"type\":\"float\"},{\"name\":\"mass_trim\",\"type\":\"float\"},{\"name\":\"mass_sd0\",\"type\":\"float\"},{\"name\":\"c2_0\",\"type\":\"float\"},{\"name\":\"c2_0P2\",\"type\":\"float\"},{\"name\":\"c2_0P5\",\"type\":\"float\"},{\"name\":\"c2_1P0\",\"type\":\"float\"},{\"name\":\"c2_2P0\",\"type\":\"float\"},{\"name\":\"qjet\",\"type\":\"float\"},{\"name\":\"tau1\",\"type\":\"float\"},{\"name\":\"tau2\",\"type\":\"float\"},{\"name\":\"tau3\",\"type\":\"float\"},{\"name\":\"tau4\",\"type\":\"float\"},{\"name\":\"doublecsv\",\"type\":\"float\"},{\"name\":\"sj1_pt\",\"type\":\"float\"},{\"name\":\"sj1_eta\",\"type\":\"float\"},{\"name\":\"sj1_phi\",\"type\":\"float\"},{\"name\":\"sj1_m\",\"type\":\"float\"},{\"name\":\"sj1_csv\",\"type\":\"float\"},{\"name\":\"sj1_qgid\",\"type\":\"float\"},{\"name\":\"sj1_q\",\"type\":\"float\"},{\"name\":\"sj2_pt\",\"type\":\"float\"},{\"name\":\"sj2_eta\",\"type\":\"float\"},{\"name\":\"sj2_phi\",\"type\":\"float\"},{\"name\":\"sj2_m\",\"type\":\"float\"},{\"name\":\"sj2_csv\",\"type\":\"float\"},{\"name\":\"sj2_qgid\",\"type\":\"float\"},{\"name\":\"sj2_q\",\"type\":\"float\"},{\"name\":\"sj3_pt\",\"type\":\"float\"},{\"name\":\"sj3_eta\",\"type\":\"float\"},{\"name\":\"sj3_phi\",\"type\":\"float\"},{\"name\":\"sj3_m\",\"type\":\"float\"},{\"name\":\"sj3_csv\",\"type\":\"float\"},{\"name\":\"sj3_qgid\",\"type\":\"float\"},{\"name\":\"sj3_q\",\"type\":\"float\"},{\"name\":\"sj4_pt\",\"type\":\"float\"},{\"name\":\"sj4_eta\",\"type\":\"float\"},{\"name\":\"sj4_phi\",\"type\":\"float\"},{\"name\":\"sj4_m\",\"type\":\"float\"},{\"name\":\"sj4_csv\",\"type\":\"float\"},{\"name\":\"sj4_qgid\",\"type\":\"float\"},{\"name\":\"sj4_q\",\"type\":\"float\"},{\"name\":\"pullAngle\",\"type\":\"float\"},{\"name\":\"topTagType\",\"type\":\"long\"},{\"name\":\"top_n_subjets\",\"type\":\"long\"},{\"name\":\"top_m_min\",\"type\":\"float\"},{\"name\":\"top_m_123\",\"type\":\"float\"},{\"name\":\"top_fRec\",\"type\":\"float\"},{\"name\":\"topchi2\",\"type\":\"float\"}]}}},{\"name\":\"CA15CHS\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TJet\"}},{\"name\":\"AddCA15CHS\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TAddJet\"}},{\"name\":\"AK4Puppi\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TJet\"}},{\"name\":\"CA8Puppi\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TJet\"}},{\"name\":\"AddCA8Puppi\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TAddJet\"}},{\"name\":\"CA15Puppi\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TJet\"}},{\"name\":\"AddCA15Puppi\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TAddJet\"}}]}");
+public class MCEvents extends org.apache.avro.specific.SpecificRecordBase implements org.apache.avro.specific.SpecificRecord, AnyEvents {
+  public static final org.apache.avro.Schema SCHEMA$ = new org.apache.avro.Schema.Parser().parse("{\"type\":\"record\",\"name\":\"MCEvents\",\"fields\":[{\"name\":\"Info\",\"type\":{\"type\":\"record\",\"name\":\"TEventInfo\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"runNum\",\"type\":\"long\"},{\"name\":\"evtNum\",\"type\":\"long\"},{\"name\":\"lumiSec\",\"type\":\"long\"},{\"name\":\"metFilterFailBits\",\"type\":\"long\"},{\"name\":\"nPU\",\"type\":\"long\"},{\"name\":\"nPUm\",\"type\":\"long\"},{\"name\":\"nPUp\",\"type\":\"long\"},{\"name\":\"nPUmean\",\"type\":\"float\"},{\"name\":\"nPUmeanm\",\"type\":\"float\"},{\"name\":\"nPUmeanp\",\"type\":\"float\"},{\"name\":\"pvx\",\"type\":\"float\"},{\"name\":\"pvy\",\"type\":\"float\"},{\"name\":\"pvz\",\"type\":\"float\"},{\"name\":\"bsx\",\"type\":\"float\"},{\"name\":\"bsy\",\"type\":\"float\"},{\"name\":\"bsz\",\"type\":\"float\"},{\"name\":\"pfMET\",\"type\":\"float\"},{\"name\":\"pfMETphi\",\"type\":\"float\"},{\"name\":\"pfMETCov00\",\"type\":\"float\"},{\"name\":\"pfMETCov01\",\"type\":\"float\"},{\"name\":\"pfMETCov11\",\"type\":\"float\"},{\"name\":\"pfMETC\",\"type\":\"float\"},{\"name\":\"pfMETCphi\",\"type\":\"float\"},{\"name\":\"pfMETCCov00\",\"type\":\"float\"},{\"name\":\"pfMETCCov01\",\"type\":\"float\"},{\"name\":\"pfMETCCov11\",\"type\":\"float\"},{\"name\":\"puppET\",\"type\":\"float\"},{\"name\":\"puppETphi\",\"type\":\"float\"},{\"name\":\"puppETCov00\",\"type\":\"float\"},{\"name\":\"puppETCov01\",\"type\":\"float\"},{\"name\":\"puppETCov11\",\"type\":\"float\"},{\"name\":\"puppETC\",\"type\":\"float\"},{\"name\":\"puppETCphi\",\"type\":\"float\"},{\"name\":\"puppETCCov00\",\"type\":\"float\"},{\"name\":\"puppETCCov01\",\"type\":\"float\"},{\"name\":\"puppETCCov11\",\"type\":\"float\"},{\"name\":\"alpacaMET\",\"type\":\"float\"},{\"name\":\"alpacaMETphi\",\"type\":\"float\"},{\"name\":\"pcpMET\",\"type\":\"float\"},{\"name\":\"pcpMETphi\",\"type\":\"float\"},{\"name\":\"rhoIso\",\"type\":\"float\"},{\"name\":\"rhoJet\",\"type\":\"float\"},{\"name\":\"hasGoodPV\",\"type\":\"boolean\"}]}},{\"name\":\"GenEvtInfo\",\"type\":{\"type\":\"record\",\"name\":\"TGenEventInfo\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"id_1\",\"type\":\"int\"},{\"name\":\"id_2\",\"type\":\"int\"},{\"name\":\"x_1\",\"type\":\"float\"},{\"name\":\"x_2\",\"type\":\"float\"},{\"name\":\"scalePDF\",\"type\":\"float\"},{\"name\":\"xs\",\"type\":\"float\"},{\"name\":\"weight\",\"type\":\"float\"}]}},{\"name\":\"GenParticle\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TGenParticle\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"parent\",\"type\":\"int\"},{\"name\":\"pdgId\",\"type\":\"int\"},{\"name\":\"status\",\"type\":\"int\"},{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"mass\",\"type\":\"float\"},{\"name\":\"y\",\"type\":\"float\"}]}}},{\"name\":\"Electron\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TElectron\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"scEt\",\"type\":\"float\"},{\"name\":\"scEta\",\"type\":\"float\"},{\"name\":\"scPhi\",\"type\":\"float\"},{\"name\":\"ecalEnergy\",\"type\":\"float\"},{\"name\":\"pfPt\",\"type\":\"float\"},{\"name\":\"pfEta\",\"type\":\"float\"},{\"name\":\"pfPhi\",\"type\":\"float\"},{\"name\":\"trkIso\",\"type\":\"float\"},{\"name\":\"ecalIso\",\"type\":\"float\"},{\"name\":\"hcalIso\",\"type\":\"float\"},{\"name\":\"hcalDepth1Iso\",\"type\":\"float\"},{\"name\":\"chHadIso\",\"type\":\"float\"},{\"name\":\"gammaIso\",\"type\":\"float\"},{\"name\":\"neuHadIso\",\"type\":\"float\"},{\"name\":\"puIso\",\"type\":\"float\"},{\"name\":\"ecalPFClusIso\",\"type\":\"float\"},{\"name\":\"hcalPFClusIso\",\"type\":\"float\"},{\"name\":\"puppiChHadIso\",\"type\":\"float\"},{\"name\":\"puppiGammaIso\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIso\",\"type\":\"float\"},{\"name\":\"puppiChHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiGammaIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"d0\",\"type\":\"float\"},{\"name\":\"dz\",\"type\":\"float\"},{\"name\":\"sip3d\",\"type\":\"float\"},{\"name\":\"sieie\",\"type\":\"float\"},{\"name\":\"e1x5\",\"type\":\"float\"},{\"name\":\"e2x5\",\"type\":\"float\"},{\"name\":\"e5x5\",\"type\":\"float\"},{\"name\":\"r9\",\"type\":\"float\"},{\"name\":\"eoverp\",\"type\":\"float\"},{\"name\":\"hovere\",\"type\":\"float\"},{\"name\":\"fbrem\",\"type\":\"float\"},{\"name\":\"dEtaInSeed\",\"type\":\"float\"},{\"name\":\"dEtaIn\",\"type\":\"float\"},{\"name\":\"dPhiIn\",\"type\":\"float\"},{\"name\":\"mva\",\"type\":\"float\"},{\"name\":\"q\",\"type\":\"int\"},{\"name\":\"isConv\",\"type\":\"boolean\"},{\"name\":\"nMissingHits\",\"type\":\"long\"},{\"name\":\"typeBits\",\"type\":\"long\"},{\"name\":\"fiducialBits\",\"type\":\"long\"},{\"name\":\"classification\",\"type\":\"int\"},{\"name\":\"scID\",\"type\":\"int\"},{\"name\":\"trkID\",\"type\":\"int\"}]}}},{\"name\":\"Muon\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TMuon\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"ptErr\",\"type\":\"float\"},{\"name\":\"staPt\",\"type\":\"float\"},{\"name\":\"staEta\",\"type\":\"float\"},{\"name\":\"staPhi\",\"type\":\"float\"},{\"name\":\"pfPt\",\"type\":\"float\"},{\"name\":\"pfEta\",\"type\":\"float\"},{\"name\":\"pfPhi\",\"type\":\"float\"},{\"name\":\"trkIso\",\"type\":\"float\"},{\"name\":\"ecalIso\",\"type\":\"float\"},{\"name\":\"hcalIso\",\"type\":\"float\"},{\"name\":\"chHadIso\",\"type\":\"float\"},{\"name\":\"gammaIso\",\"type\":\"float\"},{\"name\":\"neuHadIso\",\"type\":\"float\"},{\"name\":\"puIso\",\"type\":\"float\"},{\"name\":\"puppiChHadIso\",\"type\":\"float\"},{\"name\":\"puppiGammaIso\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIso\",\"type\":\"float\"},{\"name\":\"puppiChHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiGammaIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"d0\",\"type\":\"float\"},{\"name\":\"dz\",\"type\":\"float\"},{\"name\":\"sip3d\",\"type\":\"float\"},{\"name\":\"tkNchi2\",\"type\":\"float\"},{\"name\":\"muNchi2\",\"type\":\"float\"},{\"name\":\"trkKink\",\"type\":\"float\"},{\"name\":\"glbKink\",\"type\":\"float\"},{\"name\":\"trkHitFrac\",\"type\":\"float\"},{\"name\":\"chi2LocPos\",\"type\":\"float\"},{\"name\":\"segComp\",\"type\":\"float\"},{\"name\":\"caloComp\",\"type\":\"float\"},{\"name\":\"q\",\"type\":\"int\"},{\"name\":\"nValidHits\",\"type\":\"int\"},{\"name\":\"typeBits\",\"type\":\"long\"},{\"name\":\"selectorBits\",\"type\":\"long\"},{\"name\":\"pogIDBits\",\"type\":\"long\"},{\"name\":\"nTkHits\",\"type\":\"long\"},{\"name\":\"nPixHits\",\"type\":\"long\"},{\"name\":\"nTkLayers\",\"type\":\"long\"},{\"name\":\"nPixLayers\",\"type\":\"long\"},{\"name\":\"nMatchStn\",\"type\":\"long\"},{\"name\":\"trkID\",\"type\":\"int\"}]}}},{\"name\":\"Tau\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TTau\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"m\",\"type\":\"float\"},{\"name\":\"e\",\"type\":\"float\"},{\"name\":\"q\",\"type\":\"int\"},{\"name\":\"dzLeadChHad\",\"type\":\"float\"},{\"name\":\"nSignalChHad\",\"type\":\"long\"},{\"name\":\"nSignalGamma\",\"type\":\"long\"},{\"name\":\"antiEleMVA5\",\"type\":\"float\"},{\"name\":\"antiEleMVA5Cat\",\"type\":\"float\"},{\"name\":\"rawMuonRejection\",\"type\":\"float\"},{\"name\":\"rawIso3Hits\",\"type\":\"float\"},{\"name\":\"rawIsoMVA3oldDMwoLT\",\"type\":\"float\"},{\"name\":\"rawIsoMVA3oldDMwLT\",\"type\":\"float\"},{\"name\":\"rawIsoMVA3newDMwoLT\",\"type\":\"float\"},{\"name\":\"rawIsoMVA3newDMwLT\",\"type\":\"float\"},{\"name\":\"puppiChHadIso\",\"type\":\"float\"},{\"name\":\"puppiGammaIso\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIso\",\"type\":\"float\"},{\"name\":\"puppiChHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiGammaIsoNoLep\",\"type\":\"float\"},{\"name\":\"puppiNeuHadIsoNoLep\",\"type\":\"float\"},{\"name\":\"hpsDisc\",\"type\":\"double\"}]}}},{\"name\":\"Photon\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TPhoton\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"scEt\",\"type\":\"float\"},{\"name\":\"scEta\",\"type\":\"float\"},{\"name\":\"scPhi\",\"type\":\"float\"},{\"name\":\"trkIso\",\"type\":\"float\"},{\"name\":\"ecalIso\",\"type\":\"float\"},{\"name\":\"hcalIso\",\"type\":\"float\"},{\"name\":\"chHadIso\",\"type\":\"float\"},{\"name\":\"gammaIso\",\"type\":\"float\"},{\"name\":\"neuHadIso\",\"type\":\"float\"},{\"name\":\"mva\",\"type\":\"float\"},{\"name\":\"hovere\",\"type\":\"float\"},{\"name\":\"sthovere\",\"type\":\"float\"},{\"name\":\"sieie\",\"type\":\"float\"},{\"name\":\"sipip\",\"type\":\"float\"},{\"name\":\"r9\",\"type\":\"float\"},{\"name\":\"fiducialBits\",\"type\":\"long\"},{\"name\":\"typeBits\",\"type\":\"long\"},{\"name\":\"scID\",\"type\":\"int\"},{\"name\":\"hasPixelSeed\",\"type\":\"boolean\"},{\"name\":\"passElectronVeto\",\"type\":\"boolean\"},{\"name\":\"isConv\",\"type\":\"boolean\"}]}}},{\"name\":\"PV\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TVertex\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"nTracksFit\",\"type\":\"long\"},{\"name\":\"ndof\",\"type\":\"float\"},{\"name\":\"chi2\",\"type\":\"float\"},{\"name\":\"x\",\"type\":\"float\"},{\"name\":\"y\",\"type\":\"float\"},{\"name\":\"z\",\"type\":\"float\"}]}}},{\"name\":\"AK4CHS\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TJet\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"pt\",\"type\":\"float\"},{\"name\":\"eta\",","\"type\":\"float\"},{\"name\":\"phi\",\"type\":\"float\"},{\"name\":\"mass\",\"type\":\"float\"},{\"name\":\"ptRaw\",\"type\":\"float\"},{\"name\":\"unc\",\"type\":\"float\"},{\"name\":\"area\",\"type\":\"float\"},{\"name\":\"d0\",\"type\":\"float\"},{\"name\":\"dz\",\"type\":\"float\"},{\"name\":\"csv\",\"type\":\"float\"},{\"name\":\"bmva\",\"type\":\"float\"},{\"name\":\"cvb\",\"type\":\"float\"},{\"name\":\"cvl\",\"type\":\"float\"},{\"name\":\"qgid\",\"type\":\"float\"},{\"name\":\"axis2\",\"type\":\"float\"},{\"name\":\"ptD\",\"type\":\"float\"},{\"name\":\"mult\",\"type\":\"int\"},{\"name\":\"q\",\"type\":\"float\"},{\"name\":\"mva\",\"type\":\"float\"},{\"name\":\"beta\",\"type\":\"float\"},{\"name\":\"betaStar\",\"type\":\"float\"},{\"name\":\"dR2Mean\",\"type\":\"float\"},{\"name\":\"pullY\",\"type\":\"float\"},{\"name\":\"pullPhi\",\"type\":\"float\"},{\"name\":\"chPullY\",\"type\":\"float\"},{\"name\":\"chPullPhi\",\"type\":\"float\"},{\"name\":\"neuPullY\",\"type\":\"float\"},{\"name\":\"neuPullPhi\",\"type\":\"float\"},{\"name\":\"chEmFrac\",\"type\":\"float\"},{\"name\":\"neuEmFrac\",\"type\":\"float\"},{\"name\":\"chHadFrac\",\"type\":\"float\"},{\"name\":\"neuHadFrac\",\"type\":\"float\"},{\"name\":\"muonFrac\",\"type\":\"float\"},{\"name\":\"genpt\",\"type\":\"float\"},{\"name\":\"geneta\",\"type\":\"float\"},{\"name\":\"genphi\",\"type\":\"float\"},{\"name\":\"genm\",\"type\":\"float\"},{\"name\":\"partonFlavor\",\"type\":\"int\"},{\"name\":\"hadronFlavor\",\"type\":\"int\"},{\"name\":\"nCharged\",\"type\":\"long\"},{\"name\":\"nNeutrals\",\"type\":\"long\"},{\"name\":\"nParticles\",\"type\":\"long\"}]}}},{\"name\":\"AK8CHS\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TJet\"}},{\"name\":\"AddAK8CHS\",\"type\":{\"type\":\"array\",\"items\":{\"type\":\"record\",\"name\":\"TAddJet\",\"namespace\":\"baconhep\",\"fields\":[{\"name\":\"index\",\"type\":\"long\"},{\"name\":\"mass_prun\",\"type\":\"float\"},{\"name\":\"mass_trim\",\"type\":\"float\"},{\"name\":\"mass_sd0\",\"type\":\"float\"},{\"name\":\"c2_0\",\"type\":\"float\"},{\"name\":\"c2_0P2\",\"type\":\"float\"},{\"name\":\"c2_0P5\",\"type\":\"float\"},{\"name\":\"c2_1P0\",\"type\":\"float\"},{\"name\":\"c2_2P0\",\"type\":\"float\"},{\"name\":\"qjet\",\"type\":\"float\"},{\"name\":\"tau1\",\"type\":\"float\"},{\"name\":\"tau2\",\"type\":\"float\"},{\"name\":\"tau3\",\"type\":\"float\"},{\"name\":\"tau4\",\"type\":\"float\"},{\"name\":\"doublecsv\",\"type\":\"float\"},{\"name\":\"sj1_pt\",\"type\":\"float\"},{\"name\":\"sj1_eta\",\"type\":\"float\"},{\"name\":\"sj1_phi\",\"type\":\"float\"},{\"name\":\"sj1_m\",\"type\":\"float\"},{\"name\":\"sj1_csv\",\"type\":\"float\"},{\"name\":\"sj1_qgid\",\"type\":\"float\"},{\"name\":\"sj1_q\",\"type\":\"float\"},{\"name\":\"sj2_pt\",\"type\":\"float\"},{\"name\":\"sj2_eta\",\"type\":\"float\"},{\"name\":\"sj2_phi\",\"type\":\"float\"},{\"name\":\"sj2_m\",\"type\":\"float\"},{\"name\":\"sj2_csv\",\"type\":\"float\"},{\"name\":\"sj2_qgid\",\"type\":\"float\"},{\"name\":\"sj2_q\",\"type\":\"float\"},{\"name\":\"sj3_pt\",\"type\":\"float\"},{\"name\":\"sj3_eta\",\"type\":\"float\"},{\"name\":\"sj3_phi\",\"type\":\"float\"},{\"name\":\"sj3_m\",\"type\":\"float\"},{\"name\":\"sj3_csv\",\"type\":\"float\"},{\"name\":\"sj3_qgid\",\"type\":\"float\"},{\"name\":\"sj3_q\",\"type\":\"float\"},{\"name\":\"sj4_pt\",\"type\":\"float\"},{\"name\":\"sj4_eta\",\"type\":\"float\"},{\"name\":\"sj4_phi\",\"type\":\"float\"},{\"name\":\"sj4_m\",\"type\":\"float\"},{\"name\":\"sj4_csv\",\"type\":\"float\"},{\"name\":\"sj4_qgid\",\"type\":\"float\"},{\"name\":\"sj4_q\",\"type\":\"float\"},{\"name\":\"pullAngle\",\"type\":\"float\"},{\"name\":\"topTagType\",\"type\":\"long\"},{\"name\":\"top_n_subjets\",\"type\":\"long\"},{\"name\":\"top_m_min\",\"type\":\"float\"},{\"name\":\"top_m_123\",\"type\":\"float\"},{\"name\":\"top_fRec\",\"type\":\"float\"},{\"name\":\"topchi2\",\"type\":\"float\"}]}}},{\"name\":\"CA15CHS\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TJet\"}},{\"name\":\"AddCA15CHS\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TAddJet\"}},{\"name\":\"AK4Puppi\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TJet\"}},{\"name\":\"CA8Puppi\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TJet\"}},{\"name\":\"AddCA8Puppi\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TAddJet\"}},{\"name\":\"CA15Puppi\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TJet\"}},{\"name\":\"AddCA15Puppi\",\"type\":{\"type\":\"array\",\"items\":\"baconhep.TAddJet\"}}],\"aliases\":[\"AnyEvents\"]}");
   public static org.apache.avro.Schema getClassSchema() { return SCHEMA$; }
   @Deprecated public baconhep.TEventInfo Info;
   @Deprecated public baconhep.TGenEventInfo GenEvtInfo;
@@ -34,12 +34,12 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
    * to their default values from the schema.  If that is desired then
    * one should use <code>newBuilder()</code>. 
    */
-  public Events() {}
+  public MCEvents() {}
 
   /**
    * All-args constructor.
    */
-  public Events(baconhep.TEventInfo Info, baconhep.TGenEventInfo GenEvtInfo, java.util.List<baconhep.TGenParticle> GenParticle, java.util.List<baconhep.TElectron> Electron, java.util.List<baconhep.TMuon> Muon, java.util.List<baconhep.TTau> Tau, java.util.List<baconhep.TPhoton> Photon, java.util.List<baconhep.TVertex> PV, java.util.List<baconhep.TJet> AK4CHS, java.util.List<baconhep.TJet> AK8CHS, java.util.List<baconhep.TAddJet> AddAK8CHS, java.util.List<baconhep.TJet> CA15CHS, java.util.List<baconhep.TAddJet> AddCA15CHS, java.util.List<baconhep.TJet> AK4Puppi, java.util.List<baconhep.TJet> CA8Puppi, java.util.List<baconhep.TAddJet> AddCA8Puppi, java.util.List<baconhep.TJet> CA15Puppi, java.util.List<baconhep.TAddJet> AddCA15Puppi) {
+  public MCEvents(baconhep.TEventInfo Info, baconhep.TGenEventInfo GenEvtInfo, java.util.List<baconhep.TGenParticle> GenParticle, java.util.List<baconhep.TElectron> Electron, java.util.List<baconhep.TMuon> Muon, java.util.List<baconhep.TTau> Tau, java.util.List<baconhep.TPhoton> Photon, java.util.List<baconhep.TVertex> PV, java.util.List<baconhep.TJet> AK4CHS, java.util.List<baconhep.TJet> AK8CHS, java.util.List<baconhep.TAddJet> AddAK8CHS, java.util.List<baconhep.TJet> CA15CHS, java.util.List<baconhep.TAddJet> AddCA15CHS, java.util.List<baconhep.TJet> AK4Puppi, java.util.List<baconhep.TJet> CA8Puppi, java.util.List<baconhep.TAddJet> AddCA8Puppi, java.util.List<baconhep.TJet> CA15Puppi, java.util.List<baconhep.TAddJet> AddCA15Puppi) {
     this.Info = Info;
     this.GenEvtInfo = GenEvtInfo;
     this.GenParticle = GenParticle;
@@ -381,26 +381,26 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     this.AddCA15Puppi = value;
   }
 
-  /** Creates a new Events RecordBuilder */
-  public static Events.Builder newBuilder() {
-    return new Events.Builder();
+  /** Creates a new MCEvents RecordBuilder */
+  public static MCEvents.Builder newBuilder() {
+    return new MCEvents.Builder();
   }
   
-  /** Creates a new Events RecordBuilder by copying an existing Builder */
-  public static Events.Builder newBuilder(Events.Builder other) {
-    return new Events.Builder(other);
+  /** Creates a new MCEvents RecordBuilder by copying an existing Builder */
+  public static MCEvents.Builder newBuilder(MCEvents.Builder other) {
+    return new MCEvents.Builder(other);
   }
   
-  /** Creates a new Events RecordBuilder by copying an existing Events instance */
-  public static Events.Builder newBuilder(Events other) {
-    return new Events.Builder(other);
+  /** Creates a new MCEvents RecordBuilder by copying an existing MCEvents instance */
+  public static MCEvents.Builder newBuilder(MCEvents other) {
+    return new MCEvents.Builder(other);
   }
   
   /**
-   * RecordBuilder for Events instances.
+   * RecordBuilder for MCEvents instances.
    */
-  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<Events>
-    implements org.apache.avro.data.RecordBuilder<Events> {
+  public static class Builder extends org.apache.avro.specific.SpecificRecordBuilderBase<MCEvents>
+    implements org.apache.avro.data.RecordBuilder<MCEvents> {
 
     private baconhep.TEventInfo Info;
     private baconhep.TGenEventInfo GenEvtInfo;
@@ -423,11 +423,11 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
 
     /** Creates a new Builder */
     private Builder() {
-      super(Events.SCHEMA$);
+      super(MCEvents.SCHEMA$);
     }
     
     /** Creates a Builder by copying an existing Builder */
-    private Builder(Events.Builder other) {
+    private Builder(MCEvents.Builder other) {
       super(other);
       if (isValidValue(fields()[0], other.Info)) {
         this.Info = data().deepCopy(fields()[0].schema(), other.Info);
@@ -503,9 +503,9 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
       }
     }
     
-    /** Creates a Builder by copying an existing Events instance */
-    private Builder(Events other) {
-            super(Events.SCHEMA$);
+    /** Creates a Builder by copying an existing MCEvents instance */
+    private Builder(MCEvents other) {
+            super(MCEvents.SCHEMA$);
       if (isValidValue(fields()[0], other.Info)) {
         this.Info = data().deepCopy(fields()[0].schema(), other.Info);
         fieldSetFlags()[0] = true;
@@ -586,7 +586,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'Info' field */
-    public Events.Builder setInfo(baconhep.TEventInfo value) {
+    public MCEvents.Builder setInfo(baconhep.TEventInfo value) {
       validate(fields()[0], value);
       this.Info = value;
       fieldSetFlags()[0] = true;
@@ -599,7 +599,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'Info' field */
-    public Events.Builder clearInfo() {
+    public MCEvents.Builder clearInfo() {
       Info = null;
       fieldSetFlags()[0] = false;
       return this;
@@ -611,7 +611,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'GenEvtInfo' field */
-    public Events.Builder setGenEvtInfo(baconhep.TGenEventInfo value) {
+    public MCEvents.Builder setGenEvtInfo(baconhep.TGenEventInfo value) {
       validate(fields()[1], value);
       this.GenEvtInfo = value;
       fieldSetFlags()[1] = true;
@@ -624,7 +624,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'GenEvtInfo' field */
-    public Events.Builder clearGenEvtInfo() {
+    public MCEvents.Builder clearGenEvtInfo() {
       GenEvtInfo = null;
       fieldSetFlags()[1] = false;
       return this;
@@ -636,7 +636,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'GenParticle' field */
-    public Events.Builder setGenParticle(java.util.List<baconhep.TGenParticle> value) {
+    public MCEvents.Builder setGenParticle(java.util.List<baconhep.TGenParticle> value) {
       validate(fields()[2], value);
       this.GenParticle = value;
       fieldSetFlags()[2] = true;
@@ -649,7 +649,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'GenParticle' field */
-    public Events.Builder clearGenParticle() {
+    public MCEvents.Builder clearGenParticle() {
       GenParticle = null;
       fieldSetFlags()[2] = false;
       return this;
@@ -661,7 +661,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'Electron' field */
-    public Events.Builder setElectron(java.util.List<baconhep.TElectron> value) {
+    public MCEvents.Builder setElectron(java.util.List<baconhep.TElectron> value) {
       validate(fields()[3], value);
       this.Electron = value;
       fieldSetFlags()[3] = true;
@@ -674,7 +674,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'Electron' field */
-    public Events.Builder clearElectron() {
+    public MCEvents.Builder clearElectron() {
       Electron = null;
       fieldSetFlags()[3] = false;
       return this;
@@ -686,7 +686,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'Muon' field */
-    public Events.Builder setMuon(java.util.List<baconhep.TMuon> value) {
+    public MCEvents.Builder setMuon(java.util.List<baconhep.TMuon> value) {
       validate(fields()[4], value);
       this.Muon = value;
       fieldSetFlags()[4] = true;
@@ -699,7 +699,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'Muon' field */
-    public Events.Builder clearMuon() {
+    public MCEvents.Builder clearMuon() {
       Muon = null;
       fieldSetFlags()[4] = false;
       return this;
@@ -711,7 +711,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'Tau' field */
-    public Events.Builder setTau(java.util.List<baconhep.TTau> value) {
+    public MCEvents.Builder setTau(java.util.List<baconhep.TTau> value) {
       validate(fields()[5], value);
       this.Tau = value;
       fieldSetFlags()[5] = true;
@@ -724,7 +724,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'Tau' field */
-    public Events.Builder clearTau() {
+    public MCEvents.Builder clearTau() {
       Tau = null;
       fieldSetFlags()[5] = false;
       return this;
@@ -736,7 +736,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'Photon' field */
-    public Events.Builder setPhoton(java.util.List<baconhep.TPhoton> value) {
+    public MCEvents.Builder setPhoton(java.util.List<baconhep.TPhoton> value) {
       validate(fields()[6], value);
       this.Photon = value;
       fieldSetFlags()[6] = true;
@@ -749,7 +749,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'Photon' field */
-    public Events.Builder clearPhoton() {
+    public MCEvents.Builder clearPhoton() {
       Photon = null;
       fieldSetFlags()[6] = false;
       return this;
@@ -761,7 +761,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'PV' field */
-    public Events.Builder setPV(java.util.List<baconhep.TVertex> value) {
+    public MCEvents.Builder setPV(java.util.List<baconhep.TVertex> value) {
       validate(fields()[7], value);
       this.PV = value;
       fieldSetFlags()[7] = true;
@@ -774,7 +774,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'PV' field */
-    public Events.Builder clearPV() {
+    public MCEvents.Builder clearPV() {
       PV = null;
       fieldSetFlags()[7] = false;
       return this;
@@ -786,7 +786,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'AK4CHS' field */
-    public Events.Builder setAK4CHS(java.util.List<baconhep.TJet> value) {
+    public MCEvents.Builder setAK4CHS(java.util.List<baconhep.TJet> value) {
       validate(fields()[8], value);
       this.AK4CHS = value;
       fieldSetFlags()[8] = true;
@@ -799,7 +799,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'AK4CHS' field */
-    public Events.Builder clearAK4CHS() {
+    public MCEvents.Builder clearAK4CHS() {
       AK4CHS = null;
       fieldSetFlags()[8] = false;
       return this;
@@ -811,7 +811,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'AK8CHS' field */
-    public Events.Builder setAK8CHS(java.util.List<baconhep.TJet> value) {
+    public MCEvents.Builder setAK8CHS(java.util.List<baconhep.TJet> value) {
       validate(fields()[9], value);
       this.AK8CHS = value;
       fieldSetFlags()[9] = true;
@@ -824,7 +824,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'AK8CHS' field */
-    public Events.Builder clearAK8CHS() {
+    public MCEvents.Builder clearAK8CHS() {
       AK8CHS = null;
       fieldSetFlags()[9] = false;
       return this;
@@ -836,7 +836,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'AddAK8CHS' field */
-    public Events.Builder setAddAK8CHS(java.util.List<baconhep.TAddJet> value) {
+    public MCEvents.Builder setAddAK8CHS(java.util.List<baconhep.TAddJet> value) {
       validate(fields()[10], value);
       this.AddAK8CHS = value;
       fieldSetFlags()[10] = true;
@@ -849,7 +849,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'AddAK8CHS' field */
-    public Events.Builder clearAddAK8CHS() {
+    public MCEvents.Builder clearAddAK8CHS() {
       AddAK8CHS = null;
       fieldSetFlags()[10] = false;
       return this;
@@ -861,7 +861,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'CA15CHS' field */
-    public Events.Builder setCA15CHS(java.util.List<baconhep.TJet> value) {
+    public MCEvents.Builder setCA15CHS(java.util.List<baconhep.TJet> value) {
       validate(fields()[11], value);
       this.CA15CHS = value;
       fieldSetFlags()[11] = true;
@@ -874,7 +874,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'CA15CHS' field */
-    public Events.Builder clearCA15CHS() {
+    public MCEvents.Builder clearCA15CHS() {
       CA15CHS = null;
       fieldSetFlags()[11] = false;
       return this;
@@ -886,7 +886,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'AddCA15CHS' field */
-    public Events.Builder setAddCA15CHS(java.util.List<baconhep.TAddJet> value) {
+    public MCEvents.Builder setAddCA15CHS(java.util.List<baconhep.TAddJet> value) {
       validate(fields()[12], value);
       this.AddCA15CHS = value;
       fieldSetFlags()[12] = true;
@@ -899,7 +899,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'AddCA15CHS' field */
-    public Events.Builder clearAddCA15CHS() {
+    public MCEvents.Builder clearAddCA15CHS() {
       AddCA15CHS = null;
       fieldSetFlags()[12] = false;
       return this;
@@ -911,7 +911,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'AK4Puppi' field */
-    public Events.Builder setAK4Puppi(java.util.List<baconhep.TJet> value) {
+    public MCEvents.Builder setAK4Puppi(java.util.List<baconhep.TJet> value) {
       validate(fields()[13], value);
       this.AK4Puppi = value;
       fieldSetFlags()[13] = true;
@@ -924,7 +924,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'AK4Puppi' field */
-    public Events.Builder clearAK4Puppi() {
+    public MCEvents.Builder clearAK4Puppi() {
       AK4Puppi = null;
       fieldSetFlags()[13] = false;
       return this;
@@ -936,7 +936,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'CA8Puppi' field */
-    public Events.Builder setCA8Puppi(java.util.List<baconhep.TJet> value) {
+    public MCEvents.Builder setCA8Puppi(java.util.List<baconhep.TJet> value) {
       validate(fields()[14], value);
       this.CA8Puppi = value;
       fieldSetFlags()[14] = true;
@@ -949,7 +949,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'CA8Puppi' field */
-    public Events.Builder clearCA8Puppi() {
+    public MCEvents.Builder clearCA8Puppi() {
       CA8Puppi = null;
       fieldSetFlags()[14] = false;
       return this;
@@ -961,7 +961,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'AddCA8Puppi' field */
-    public Events.Builder setAddCA8Puppi(java.util.List<baconhep.TAddJet> value) {
+    public MCEvents.Builder setAddCA8Puppi(java.util.List<baconhep.TAddJet> value) {
       validate(fields()[15], value);
       this.AddCA8Puppi = value;
       fieldSetFlags()[15] = true;
@@ -974,7 +974,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'AddCA8Puppi' field */
-    public Events.Builder clearAddCA8Puppi() {
+    public MCEvents.Builder clearAddCA8Puppi() {
       AddCA8Puppi = null;
       fieldSetFlags()[15] = false;
       return this;
@@ -986,7 +986,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'CA15Puppi' field */
-    public Events.Builder setCA15Puppi(java.util.List<baconhep.TJet> value) {
+    public MCEvents.Builder setCA15Puppi(java.util.List<baconhep.TJet> value) {
       validate(fields()[16], value);
       this.CA15Puppi = value;
       fieldSetFlags()[16] = true;
@@ -999,7 +999,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'CA15Puppi' field */
-    public Events.Builder clearCA15Puppi() {
+    public MCEvents.Builder clearCA15Puppi() {
       CA15Puppi = null;
       fieldSetFlags()[16] = false;
       return this;
@@ -1011,7 +1011,7 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Sets the value of the 'AddCA15Puppi' field */
-    public Events.Builder setAddCA15Puppi(java.util.List<baconhep.TAddJet> value) {
+    public MCEvents.Builder setAddCA15Puppi(java.util.List<baconhep.TAddJet> value) {
       validate(fields()[17], value);
       this.AddCA15Puppi = value;
       fieldSetFlags()[17] = true;
@@ -1024,16 +1024,16 @@ public class Events extends org.apache.avro.specific.SpecificRecordBase implemen
     }
     
     /** Clears the value of the 'AddCA15Puppi' field */
-    public Events.Builder clearAddCA15Puppi() {
+    public MCEvents.Builder clearAddCA15Puppi() {
       AddCA15Puppi = null;
       fieldSetFlags()[17] = false;
       return this;
     }
 
     @Override
-    public Events build() {
+    public MCEvents build() {
       try {
-        Events record = new Events();
+        MCEvents record = new MCEvents();
         record.Info = fieldSetFlags()[0] ? this.Info : (baconhep.TEventInfo) defaultValue(fields()[0]);
         record.GenEvtInfo = fieldSetFlags()[1] ? this.GenEvtInfo : (baconhep.TGenEventInfo) defaultValue(fields()[1]);
         record.GenParticle = fieldSetFlags()[2] ? this.GenParticle : (java.util.List<baconhep.TGenParticle>) defaultValue(fields()[2]);

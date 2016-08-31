@@ -1,20 +1,17 @@
 name := "BaconAnalysis"
 
-version := "1.0"
+version := "2.0"
 
-scalaVersion := "2.10.5"
+scalaVersion := "2.11.8"
 
 //resolvers += Resolver.mavenLocal
 resolvers += "Local Maven" at Path.userHome.asFile.toURI.toURL + ".m2/repository"
 
 libraryDependencies ++= Seq(
     // Spark dependency
-    "org.apache.spark"  % "spark-core_2.10" % "1.6.1" % "provided",
-    "org.apache.spark"  % "spark-sql_2.10" % "1.6.1" % "provided"
+    "org.apache.spark"  % "spark-core_2.11" % "2.0.0" % "provided",
+    "org.apache.spark"  % "spark-sql_2.11" % "2.0.0" % "provided"
 )
-
-libraryDependencies += "com.databricks" %% "spark-avro" % "2.0.1"
-libraryDependencies += "com.github.scopt" %% "scopt" % "3.4.0"
 
 libraryDependencies += "org.scalamacros" % "quasiquotes_2.10" % "2.1.0"
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)

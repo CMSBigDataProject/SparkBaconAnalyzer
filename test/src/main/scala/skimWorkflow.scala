@@ -2,6 +2,7 @@ import org.apache.avro.mapred.AvroKey
 import org.apache.hadoop.io.NullWritable
 import org.apache.spark.SparkContext
 import org.apache.spark.sql.Row
+import org.apache.spark.rdd._
 import scala.collection.JavaConversions._
 import scala.language.postfixOps
 import MakeRow._
@@ -11,45 +12,154 @@ import org.dianahep.histogrammar.json._
 object SkimWorkflow {
 
     // RDDs
-    def SingleElectron(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/SingleElectron*/*.avro").map(_._1.datum)
-    def MET(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/METRun2015D_16Dec2015_v1/*.avro").map(_._1.datum)
-    def SinglePhoton(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/SinglePhoton*/*.avro").map(_._1.datum)
-    
-    def	QCD100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT100to200*/*.avro").map(_._1.datum)
-    def QCD200to300(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT200to300*/*.avro").map(_._1.datum)
-    def QCD300to500(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT300to500*/*.avro").map(_._1.datum)
-    def QCD500to700(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT500to700*/*.avro").map(_._1.datum)
-    def QCD700to1000(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT700to1000*/*.avro").map(_._1.datum)
-    def QCD1000to1500(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT1000to1500*/*.avro").map(_._1.datum)
-    def QCD1500to2000(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT1500to2000*/*.avro").map(_._1.datum)
-    def QCD2000toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/QCD_HT2000toInf*/*.avro").map(_._1.datum)
-    def	W100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu_HT_100to200_13TeV*/*.avro").map(_._1.datum)
-    def W200to400(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu_HT_200to400_13TeV*/*.avro").map(_._1.datum)
-    def W400to600(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu_HT_400to600_13TeV*/*.avro").map(_._1.datum)
-    def W600toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WJetsToLNu_HT_600toInf_13TeV*/*.avro").map(_._1.datum)
-    def Z100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZJetsToNuNu_HT_100to200_13TeV/*.avro").map(_._1.datum)
-    def Z200to400(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZJetsToNuNu_HT_200to400_13TeV*/*.avro").map(_._1.datum)
-    def Z400to600(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZJetsToNuNu_HT_400to600_13TeV*/*.avro").map(_._1.datum)
-    def Z600toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZJetsToNuNu_HT_600toInf_13TeV*/*.avro").map(_._1.datum)
-    def	DY100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/DYJetsToLL_M_50_HT_100to200_13TeV_2/*.avro").map(_._1.datum)
-    def DY200to400(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/DYJetsToLL_M_50_HT_200to400_13TeV_2/*.avro").map(_._1.datum)
-    def DY400to600(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/DYJetsToLL_M_50_HT_400to600_13TeV_2/*.avro").map(_._1.datum)
-    def DY600toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/DYJetsToLL_M_50_HT_600toInf_13TeV_2/*.avro").map(_._1.datum)
-    def G100to200(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_100to200_13TeV/*.avro").map(_._1.datum)
-    def G200to400(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_200to400_13TeV/*.avro").map(_._1.datum)
-    def G400to600(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_400to600_13TeV/*.avro").map(_._1.datum)
-    def G600toInf(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/GJets_HT_600toInf_13TeV/*.avro").map(_._1.datum)
-    def Ttantitop(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ST_t_channel_antitop_4f_inclusiveDecays_13TeV_*/*.avro").map(_._1.datum)
-    def Tttop(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ST_t_channel_top_4f_inclusiveDecays_13TeV_*/*.avro").map(_._1.datum)
-    def TtWantitop(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ST_tW_antitop_5f_inclusiveDecays_13TeV_*/*.avro").map(_._1.datum)
-    def TtWtop(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ST_tW_top_5f_inclusiveDecays_13TeV_*/*.avro").map(_._1.datum)
-
-    def TT(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/TTJets_13TeV*/*.avro").map(_._1.datum)
-    def TTG(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/TTGJets_13TeV*/*.avro").map(_._1.datum)
-    def TTZ(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/TTZToLLNuNu*/*.avro").map(_._1.datum)
-    def WW(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WW_13TeV_pythia8/*.avro").map(_._1.datum)
-    def WZ(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/WZ_13TeV_pythia8/*.avro").map(_._1.datum)
-    def ZZ(sc: SparkContext) = sc.newAPIHadoopFile[AvroKey[Events], NullWritable, MyKeyInputFormat[Events]]("/user/HEP/ZZ_13TeV_pythia8/*.avro").map(_._1.datum)
+    def SingleElectron(sc: SparkContext) : RDD[DataEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",DataEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/SingleElectron*/*.avro",classOf[MyKeyInputFormat[DataEvents]], classOf[AvroKey[DataEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)  
+    }
+    def MET(sc: SparkContext) : RDD[DataEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",DataEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/METRun2015D_16Dec2015_v1/*.avro",classOf[MyKeyInputFormat[DataEvents]], classOf[AvroKey[DataEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def SinglePhoton(sc: SparkContext) : RDD[DataEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",DataEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/SinglePhoton*/*.avro",classOf[MyKeyInputFormat[DataEvents]], classOf[AvroKey[DataEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def	QCD100to200(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT100to200*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def QCD200to300(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT200to300*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def QCD300to500(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT300to500*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def QCD500to700(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT500to700*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def QCD700to1000(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT700to1000*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def QCD1000to1500(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT1000to1500*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum) 
+    }
+    def QCD1500to2000(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT1500to2000*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def QCD2000toInf(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/QCD_HT2000toInf*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def	W100to200(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_100to200_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def W200to400(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_200to400_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def W400to600(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_400to600_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def W600toInf(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WJetsToLNu_HT_600toInf_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def Z100to200(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_100to200_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def Z200to400(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_200to400_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def Z400to600(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_400to600_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    } 
+    def Z600toInf(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ZJetsToNuNu_HT_600toInf_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    } 
+    def	DY100to200(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_100to200_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def DY200to400(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_200to400_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def DY400to600(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_400to600_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def DY600toInf(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/DYJetsToLL_M_50_HT_600toInf_13TeV_2/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def G100to200(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/GJets_HT_100to200_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def G200to400(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/GJets_HT_200to400_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def G400to600(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/GJets_HT_400to600_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def G600toInf(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/GJets_HT_600toInf_13TeV/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def Ttantitop(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ST_t_channel_antitop_4f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def Tttop(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ST_t_channel_top_4f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def TtWantitop(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ST_tW_antitop_5f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def TtWtop(sc: SparkContext) : RDD[MCEvents] = { 
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ST_tW_top_5f_inclusiveDecays_13TeV_*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def TT(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/TTJets_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def TTG(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/TTGJets_13TeV*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def TTZ(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/TTZToLLNuNu*/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def WW(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WW_13TeV_pythia8/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def WZ(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/WZ_13TeV_pythia8/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
+    def ZZ(sc: SparkContext) : RDD[MCEvents] = {
+       sc.hadoopConfiguration.set("avro.schema.input.key",MCEvents.getClassSchema.toString)
+       sc.newAPIHadoopFile("/user/HEP/ZZ_13TeV_pythia8/*.avro",classOf[MyKeyInputFormat[MCEvents]], classOf[AvroKey[MCEvents]], classOf[NullWritable],sc.hadoopConfiguration).map(_._1.datum)
+    }
 
     // X-sec
     val xsQCD100to200 = 27500000
@@ -102,8 +212,8 @@ object SkimWorkflow {
     val CSVL = 0.605
 
     // Check GenInfo (for MC only)
-    def loadGenInfo(event: Events, xs: Double, weight: Double) = {
-       (xs*1000*event.GenEvtInfo.weight)/weight
+    def loadGenInfo(event: MCEvents, xs: Double, weight: Double) = {
+       (xs*1000*event.getGenEvtInfo.weight)/weight
     }
 
     case class InfoVars(var runNum: Long, var lumiSec: Long, var evtNum: Long, var metfilter: Long, var scale1fb: Double, var evtWeight: Double, var pfmet: Double, var pfmetphi: Double, var puppet: Double, var puppetphi: Double, var fakepfmet: Double, var fakepfmetphi: Double, var fakepuppet: Double, var fakepuppetphi: Double)
@@ -116,38 +226,38 @@ object SkimWorkflow {
     case class VJetVars(var N: Int, var pt: Double, var eta: Double, var phi: Double, var m: Double, var csv: Double, var CHF: Double, var NHF: Double, var NEMF: Double, var tau21: Double, var tau32: Double, var msd: Double, var minsubcsv: Double, var maxsubcsv: Double)
     case class AllVars(var infovars: InfoVars = null, var genevtinfovars: GenEvtInfoVars = null, var muonvars: MuonVars = null, var electronvars: ElectronVars = null, var tauvars: TauVars = null, var photonvars: PhotonVars = null, var jetvars: JetVars = null, var vjetvars: VJetVars = null)
 
-    def runMonoX(event: Events, xsec: Double, nevts: Double) = {
+    def runMonoX(event: AnyEvents, xsec: Double, nevts: Double) = {
 
       // trigger information missing
       // lepton SFs missing
       // btag SFs missing
       // trigger effs missing
 
-      val filteredMuons = event.Muon.filter(filterMuon)
-      val filteredElectrons = event.Electron.filter(filterElectron(_, event.Info.rhoIso))
-      val filteredTaus = event.Tau.filter(filterTau)
-      val filteredPhotons = event.Photon.filter(filterPhoton(_, event.Info.rhoIso))
-      val filteredJets = event.AK4Puppi.filter(filterJet)
-      val filteredVJets = event.CA15Puppi.filter(filterVJet)
+      val filteredMuons = event.getMuon.filter(filterMuon)
+      val filteredElectrons = event.getElectron.filter(filterElectron(_, event.getInfo.rhoIso))
+      val filteredTaus = event.getTau.filter(filterTau)
+      val filteredPhotons = event.getPhoton.filter(filterPhoton(_, event.getInfo.rhoIso))
+      val filteredJets = event.getAK4Puppi.filter(filterJet)
+      val filteredVJets = event.getCA15Puppi.filter(filterVJet)
 
       val allvars = AllVars(null, null, null, null, null, null, null, null)
 
       allvars.infovars = InfoVars(0, 0, 0, 0, 1.0, 1.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
-      allvars.infovars.runNum = event.Info.runNum
-      allvars.infovars.lumiSec = event.Info.lumiSec	      
-      allvars.infovars.evtNum = event.Info.evtNum
-      allvars.infovars.metfilter = event.Info.metFilterFailBits
-      allvars.infovars.pfmet = event.Info.pfMETC
-      allvars.infovars.pfmetphi = event.Info.pfMETCphi
-      allvars.infovars.puppet = event.Info.puppETC
-      allvars.infovars.puppetphi = event.Info.puppETCphi
-      allvars.infovars.fakepfmet = event.Info.pfMETC
-      allvars.infovars.fakepfmetphi = event.Info.pfMETCphi
-      allvars.infovars.fakepuppet = event.Info.puppETC
-      allvars.infovars.fakepuppetphi = event.Info.puppETCphi
+      allvars.infovars.runNum = event.getInfo.runNum
+      allvars.infovars.lumiSec = event.getInfo.lumiSec	      
+      allvars.infovars.evtNum = event.getInfo.evtNum
+      allvars.infovars.metfilter = event.getInfo.metFilterFailBits
+      allvars.infovars.pfmet = event.getInfo.pfMETC
+      allvars.infovars.pfmetphi = event.getInfo.pfMETCphi
+      allvars.infovars.puppet = event.getInfo.puppETC
+      allvars.infovars.puppetphi = event.getInfo.puppETCphi
+      allvars.infovars.fakepfmet = event.getInfo.pfMETC
+      allvars.infovars.fakepfmetphi = event.getInfo.pfMETCphi
+      allvars.infovars.fakepuppet = event.getInfo.puppETC
+      allvars.infovars.fakepuppetphi = event.getInfo.puppETCphi
 
-      val vpuppet = LorentzVector(event.Info.puppETC,0,event.Info.puppETCphi,0)
-      val vpfmet = LorentzVector(event.Info.pfMETC,0,event.Info.pfMETCphi,0)
+      val vpuppet = LorentzVector(event.getInfo.puppETC,0,event.getInfo.puppETCphi,0)
+      val vpfmet = LorentzVector(event.getInfo.pfMETC,0,event.getInfo.pfMETCphi,0)
       
       allvars.genevtinfovars = GenEvtInfoVars(0.0, 0.0)
 
@@ -195,7 +305,7 @@ object SkimWorkflow {
       if (!filteredVJets.isEmpty) {
         allvars.vjetvars = VJetVars(0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0)
 	val v = filteredVJets.maxBy(_.pt)
-        val vadd = event.AddCA15Puppi.find(puppijet => event.CA15Puppi(puppijet.index.toInt) == v) match {
+        val vadd = event.getAddCA15Puppi.find(puppijet => event.getCA15Puppi.apply(puppijet.index.toInt) == v) match {
          case Some(puppijet) => puppijet
          case None => throw new Exception()
        }
@@ -246,7 +356,7 @@ object SkimWorkflow {
         jet = LorentzVector(j.pt,j.eta,j.phi,j.mass)
       }
 
-      if(allvars.infovars.pfmet > 200. || allvars.infovars.puppet > 200. || allvars.infovars.fakepuppet > 200. || allvars.infovars.fakepfmet > 200.){
+      if(allvars.infovars.pfmet > 200.0 || allvars.infovars.puppet > 200.0 || allvars.infovars.fakepuppet > 200.0 || allvars.infovars.fakepfmet > 200.0){
         List(allvars)
       }
       else{
@@ -258,7 +368,7 @@ object SkimWorkflow {
     //if(event.AK4Puppi.filter(filterJet).maxBy(_.pt).pt > 250) true
 
     // Json and Lumi
-     val runlumiLookup: Map[Long, Seq[(Long, Long)]] = Json.parse(new java.util.Scanner(new java.io.FileInputStream("/home/csuarez/bigdata/SparkBaconAnalyzer/test/Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_v2.txt")).useDelimiter("\\A").next) match {
+     val runlumiLookup: Map[Long, Seq[(Long, Long)]] = Json.parse(new java.util.Scanner(new java.io.FileInputStream("Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_v2.txt")).useDelimiter("\\A").next) match {
        case Some(JsonObject(runlumi @ _*)) =>
          runlumi map {
 	   case (JsonString(run), JsonArray(lumi @ _*)) =>
@@ -274,10 +384,10 @@ object SkimWorkflow {
     def eventInLumi(lumiSec: Long, lumiPair: Seq[(Long, Long)]): Boolean =
       lumiPair exists {case (start, end) => start <= lumiSec && lumiSec <= end}
 
-    def goodEvent(event: Events) = {
-       val lRun = new Tuple2(event.Info.runNum,event.Info.lumiSec)
-       val lumiPair: Seq[(Long, Long)] = runlumiLookup.getOrElse(event.Info.runNum, Seq[(Long, Long)]()) 
-       eventInLumi(event.Info.lumiSec, lumiPair)
+    def goodEvent(event: AnyEvents) = {
+       val lRun = new Tuple2(event.getInfo.runNum,event.getInfo.lumiSec)
+       val lumiPair: Seq[(Long, Long)] = runlumiLookup.getOrElse(event.getInfo.runNum, Seq[(Long, Long)]()) 
+       eventInLumi(event.getInfo.lumiSec, lumiPair)
     }
 
     // In Spark:
@@ -587,9 +697,9 @@ object SkimWorkflow {
       // Loose photon ID (https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentelse ificationRun2#PHYS14_selections_PU20_bunch_cro)                                             
       // if !(photon.passElectronVeto) false  // conversion safe electron veto                                                                                                                                           \
                                                                                                                                                                                                  
-      val chHadIso  = Math.max(photon.chHadIso  - rho*phoEffArea(photon.scEta, 0), 0.)
-      val neuHadIso = Math.max(photon.neuHadIso - rho*phoEffArea(photon.scEta, 1), 0.)
-      val phoIso    = Math.max(photon.gammaIso  - rho*phoEffArea(photon.scEta, 2), 0.)
+      val chHadIso  = Math.max(photon.chHadIso  - rho*phoEffArea(photon.scEta, 0), 0.0)
+      val neuHadIso = Math.max(photon.neuHadIso - rho*phoEffArea(photon.scEta, 1), 0.0)
+      val phoIso    = Math.max(photon.gammaIso  - rho*phoEffArea(photon.scEta, 2), 0.0)
 
       if(Math.abs(photon.scEta) <= 1.479) {
         if(photon.sthovere      > 0.05)                                     false
@@ -612,9 +722,9 @@ object SkimWorkflow {
       // Medium photon ID (https://twiki.cern.ch/twiki/bin/view/CMS/CutBasedPhotonIdentelse ificationRun2#PHYS14_selections_PU20_bunch_cro)                                                                                                
       // if !(photon.passElectronVeto) false  // conversion safe electron veto                                                                                                                                           \
                                                                                                                                                                                                                                   
-      val chHadIso  = Math.max(photon.chHadIso  - rho*phoEffArea(photon.scEta, 0), 0.)
-      val neuHadIso = Math.max(photon.neuHadIso - rho*phoEffArea(photon.scEta, 1), 0.)
-      val phoIso    = Math.max(photon.gammaIso  - rho*phoEffArea(photon.scEta, 2), 0.)
+      val chHadIso  = Math.max(photon.chHadIso  - rho*phoEffArea(photon.scEta, 0), 0.0)
+      val neuHadIso = Math.max(photon.neuHadIso - rho*phoEffArea(photon.scEta, 1), 0.0)
+      val phoIso    = Math.max(photon.gammaIso  - rho*phoEffArea(photon.scEta, 2), 0.0)
 
       if(Math.abs(photon.scEta) <= 1.479) {
         if(photon.sthovere      > 0.05)                                     false
