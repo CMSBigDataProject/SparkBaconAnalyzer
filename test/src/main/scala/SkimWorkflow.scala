@@ -554,7 +554,7 @@ object SkimWorkflow {
 
   def main(args: Array[String]) {
 
-    println(s"\nExample submit command: spark-submit --class SkimWorkflow --master yarn --queue production --num-executors 30 --executor-cores 3 --executor-memory 10g target/scala-2.11/BaconAnalysis-assembly-2.0.jar\n")
+    println(s"\nExample submit command: spark-submit --class SkimWorkflow --master yarn --queue production --num-executors 20 --executor-cores 3 --executor-memory 10g --files Cert_13TeV_16Dec2015ReReco_Collisions15_25ns_JSON_v2.txt target/scala-2.11/BaconAnalysis-assembly-2.0.jar\n")
 
     val t0 = System.nanoTime()
 
