@@ -1,3 +1,5 @@
+import com.typesafe.config._
+
 import org.apache.avro.mapred.AvroKey
 import org.apache.hadoop.io.NullWritable
 import org.apache.spark.SparkContext
@@ -556,15 +558,16 @@ object SkimWorkflow {
 
     val t0 = System.nanoTime()
 
-    run()
+    val params = ConfigFactory.load("skimWorkflow")
+
+    run(params)
 
     val t1 = System.nanoTime()
     println("Elapsed time: " + (t1 - t0)/1000000000 + "s")
   }
 
-
-  def run() {
-
+  def run(params: Config) {
+ 
     val spark = SparkSession.builder().appName("SkimWorkflow")
       .config("spark.dynamicAllocation.enabled","true")
       .config("spark.shuffle.service.enabled","true")
@@ -575,38 +578,40 @@ object SkimWorkflow {
 
     import spark.implicits._
 
-    //put whatever you do in the spark-shell here
-    val rddMET = SkimWorkflow.LoadData(spark.sparkContext,"/user/HEP/METRun2015D_16Dec2015_v1/*.avro").cache()
-    val rddQCD100to200 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT100to200*/*.avro").cache()
-    val rddQCD200to300 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT200to300*/*.avro").cache()
-    val rddQCD300to500 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT300to500*/*.avro").cache()
-    val rddQCD500to700 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT500to700**/*.avro").cache()
-    val rddQCD700to1000 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT700to1000**/*.avro").cache()
-    val rddQCD1000to1500 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT1000to1500**/*.avro").cache()
-    val rddQCD1500to2000 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT1500to2000**/*.avro").cache()
-    val rddQCD2000toInf = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT2000toInf**/*.avro").cache()
-    val rddW100to200 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/WJetsToLNu_HT_100to200_13TeV*/*.avro").cache()
-    val rddW200to400 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/WJetsToLNu_HT_200to400_13TeV*/*.avro").cache()
-    val rddW400to600 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/WJetsToLNu_HT_400to600_13TeV*/*.avro").cache()
-    val rddW600toInf = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/WJetsToLNu_HT_600toInf_13TeV*/*.avro").cache()
-    val rddZ100to200 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ZJetsToNuNu_HT_100to200_13TeV/*.avro").cache()
-    val rddZ200to400 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ZJetsToNuNu_HT_200to400_13TeV*/*.avro").cache()
-    val rddZ400to600 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ZJetsToNuNu_HT_400to600_13TeV*/*.avro").cache()
-    val rddZ600toInf = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ZJetsToNuNu_HT_600toInf_13TeV*/*.avro").cache()
-    val rddDY100to200 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/DYJetsToLL_M_50_HT_100to200_13TeV_2/*.avro").cache()
-    val rddDY200to400 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/DYJetsToLL_M_50_HT_200to400_13TeV_2/*.avro").cache()
-    val rddDY400to600 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/DYJetsToLL_M_50_HT_400to600_13TeV_2/*.avro").cache()
-    val rddDY600toInf = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/DYJetsToLL_M_50_HT_600toInf_13TeV_2/*.avro").cache()
-    val rddG100to200 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/GJets_HT_100to200_13TeV/*.avro").cache()
-    val rddG200to400 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/GJets_HT_200to400_13TeV/*.avro").cache()
-    val rddG400to600 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/GJets_HT_400to600_13TeV/*.avro").cache()
-    val rddG600toInf = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/GJets_HT_600toInf_13TeV/*.avro").cache()
-    val rddTtantitop = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ST_t_channel_antitop_4f_inclusiveDecays_13TeV_*/*.avro").cache()
-    val rddTttop = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ST_t_channel_top_4f_inclusiveDecays_13TeV_*/*.avro").cache()
-    val rddTtWantitop = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ST_tW_antitop_5f_inclusiveDecays_13TeV_*/*.avro").cache()
-    val rddTtWtop = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ST_tW_top_5f_inclusiveDecays_13TeV_*/*.avro").cache()
-    val rddTT = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/TTJets_13TeV*/*.avro").cache()
 
+    //put whatever you do in the spark-shell here
+    var rddMET = SkimWorkflow.LoadData(spark.sparkContext,"/user/HEP/METRun2015D_16Dec2015_v1/*.avro").cache()
+    //val rddQCD100to200 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT100to200*/*.avro").cache()
+    //val rddQCD200to300 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT200to300*/*.avro").cache()
+    //val rddQCD300to500 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT300to500*/*.avro").cache()
+    //val rddQCD500to700 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT500to700**/*.avro").cache()
+    //val rddQCD700to1000 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT700to1000**/*.avro").cache()
+    //val rddQCD1000to1500 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT1000to1500**/*.avro").cache()
+    //val rddQCD1500to2000 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT1500to2000**/*.avro").cache()
+    //val rddQCD2000toInf = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/QCD_HT2000toInf**/*.avro").cache()
+    //val rddW100to200 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/WJetsToLNu_HT_100to200_13TeV*/*.avro").cache()
+    //val rddW200to400 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/WJetsToLNu_HT_200to400_13TeV*/*.avro").cache()
+    //val rddW400to600 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/WJetsToLNu_HT_400to600_13TeV*/*.avro").cache()
+    //val rddW600toInf = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/WJetsToLNu_HT_600toInf_13TeV*/*.avro").cache()
+    //val rddZ100to200 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ZJetsToNuNu_HT_100to200_13TeV/*.avro").cache()
+    //val rddZ200to400 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ZJetsToNuNu_HT_200to400_13TeV*/*.avro").cache()
+    //val rddZ400to600 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ZJetsToNuNu_HT_400to600_13TeV*/*.avro").cache()
+    //val rddZ600toInf = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ZJetsToNuNu_HT_600toInf_13TeV*/*.avro").cache()
+    //val rddDY100to200 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/DYJetsToLL_M_50_HT_100to200_13TeV_2/*.avro").cache()
+    //val rddDY200to400 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/DYJetsToLL_M_50_HT_200to400_13TeV_2/*.avro").cache()
+    //val rddDY400to600 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/DYJetsToLL_M_50_HT_400to600_13TeV_2/*.avro").cache()
+    //val rddDY600toInf = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/DYJetsToLL_M_50_HT_600toInf_13TeV_2/*.avro").cache()
+    //val rddG100to200 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/GJets_HT_100to200_13TeV/*.avro").cache()
+    //val rddG200to400 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/GJets_HT_200to400_13TeV/*.avro").cache()
+    //val rddG400to600 = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/GJets_HT_400to600_13TeV/*.avro").cache()
+    //val rddG600toInf = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/GJets_HT_600toInf_13TeV/*.avro").cache()
+    //val rddTtantitop = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ST_t_channel_antitop_4f_inclusiveDecays_13TeV_*/*.avro").cache()
+    //val rddTttop = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ST_t_channel_top_4f_inclusiveDecays_13TeV_*/*.avro").cache()
+    //val rddTtWantitop = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ST_tW_antitop_5f_inclusiveDecays_13TeV_*/*.avro").cache()
+    //val rddTtWtop = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/ST_tW_top_5f_inclusiveDecays_13TeV_*/*.avro").cache()
+    var rddTT = SkimWorkflow.LoadMC(spark.sparkContext,"/user/HEP/TTJets_13TeV*/*.avro").cache()
+
+    /*
     val nevtsQCD100to200 = rddQCD100to200.count()
     val nevtsQCD200to300 = rddQCD200to300.count()
     val nevtsQCD300to500 = rddQCD300to500.count()
@@ -635,9 +640,11 @@ object SkimWorkflow {
     val nevtsTttop = rddTttop.count()
     val nevtsTtWantitop = rddTtWantitop.count()
     val nevtsTtWtop = rddTtWtop.count()
+    */
     val nevtsTT = rddTT.count()
 
     val rdd_filteredMET = rddMET.filter(goodEvent).filter(_.Info.hasGoodPV).flatMap(runMonoX(_, 1,1))
+    /*
     val rdd_filteredQCD100to200 = rddQCD100to200.filter(_.Info.hasGoodPV).flatMap(runMonoX(_, xsQCD100to200, nevtsQCD100to200))
     val rdd_filteredQCD200to300 = rddQCD200to300.filter(_.Info.hasGoodPV).flatMap(runMonoX(_, xsQCD200to300, nevtsQCD200to300))
     val rdd_filteredQCD300to500 = rddQCD300to500.filter(_.Info.hasGoodPV).flatMap(runMonoX(_, xsQCD300to500, nevtsQCD300to500))
@@ -666,29 +673,29 @@ object SkimWorkflow {
     val rdd_filteredTttop = rddTttop.filter(_.Info.hasGoodPV).flatMap(runMonoX(_, xsTttop, nevtsTttop))
     val rdd_filteredTtWantitop = rddTtWantitop.filter(_.Info.hasGoodPV).flatMap(runMonoX(_, xsTtWantitop, nevtsTtWantitop))
     val rdd_filteredTtWtop = rddTtWtop.filter(_.Info.hasGoodPV).flatMap(runMonoX(_, xsTtWtop, nevtsTtWtop))
+    */
     val rdd_filteredTT = rddTT.filter(_.Info.hasGoodPV).flatMap(runMonoX(_, xsTT, nevtsTT))
-
-    //call an action just to test it
-    println(rdd_filteredTT.count())
 
     //to df and parquet
     val MET_todf = rdd_filteredMET.toDF()
-    val QCD_todf = (rdd_filteredQCD100to200 ++ rdd_filteredQCD200to300 ++ rdd_filteredQCD300to500 ++ rdd_filteredQCD500to700 ++ rdd_filteredQCD700to1000 ++ rdd_filteredQCD1000to1500 ++ rdd_filteredQCD1500to2000 ++ rdd_filteredQCD2000toInf).toDF()
+    /*val QCD_todf = (rdd_filteredQCD100to200 ++ rdd_filteredQCD200to300 ++ rdd_filteredQCD300to500 ++ rdd_filteredQCD500to700 ++ rdd_filteredQCD700to1000 ++ rdd_filteredQCD1000to1500 ++ rdd_filteredQCD1500to2000 ++ rdd_filteredQCD2000toInf).toDF()
     val WJetsToLNu_todf = (rdd_filteredW100to200 ++ rdd_filteredW200to400 ++ rdd_filteredW400to600 ++ rdd_filteredW600toInf).toDF()
     val ZJetsToNuNu_todf = (rdd_filteredZ100to200 ++ rdd_filteredZ200to400 ++ rdd_filteredZ400to600 ++ rdd_filteredZ600toInf).toDF()
     val DYJetsToLL_todf = (rdd_filteredDY100to200 ++ rdd_filteredDY200to400 ++ rdd_filteredDY400to600 ++ rdd_filteredDY600toInf).toDF()
     val GJets_todf = (rdd_filteredG100to200 ++ rdd_filteredG200to400 ++ rdd_filteredG400to600 ++ rdd_filteredG600toInf).toDF()
     val SingleTop_todf = (rdd_filteredTtantitop ++ rdd_filteredTttop ++ rdd_filteredTtWantitop ++ rdd_filteredTtWtop).toDF()
+    */
     val TT_todf = rdd_filteredTT.toDF()
 
-    MET_todf.write.parquet("monoxbits/MET")
-    QCD_todf.write.parquet("monoxbits/QCD")
+    MET_todf.write.parquet(params.getString("skimWorkflow.outputFolder")+"/MET")
+    /*QCD_todf.write.parquet("monoxbits/QCD")
     WJetsToLNu_todf.write.parquet("monoxbits/WJetsToLNu")
     ZJetsToNuNu_todf.write.parquet("monoxbits/ZJetsToNuNu")
     DYJetsToLL_todf.write.parquet("monoxbits/DYJetsToLL")
     GJets_todf.write.parquet("monoxbits/GJets")
     SingleTop_todf.write.parquet("monoxbits/SingleTop")
-    TT_todf.write.parquet("monoxbits/TT")
+    */
+    TT_todf.write.parquet(params.getString("skimWorkflow.outputFolder")+"/TT")
 
     spark.stop()
    }
