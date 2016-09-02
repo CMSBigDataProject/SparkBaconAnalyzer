@@ -19,3 +19,5 @@ addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.fu
 libraryDependencies += "org.diana-hep" % "histogrammar" % "0.9-prerelease"
 
 //libraryDependencies += "org.json4s" %% "json4s-native" % "3.2.4"
+
+libraryDependencies += "com.typesafe" % "config" % "1.3.0"
