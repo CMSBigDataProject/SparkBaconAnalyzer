@@ -16,7 +16,9 @@ libraryDependencies ++= Seq(
 libraryDependencies += "org.scalamacros" % "quasiquotes_2.10" % "2.1.0"
 addCompilerPlugin("org.scalamacros" % "paradise" % "2.1.0" cross CrossVersion.full)
 
-libraryDependencies += "org.diana-hep" % "histogrammar" % "0.9-prerelease"
+libraryDependencies += "org.diana-hep" %% "histogrammar" % "1.0.1"
+
+//libraryDependencies += "org.diana-hep" % "histogrammar" % "0.9-prerelease"
 
 //libraryDependencies += "org.json4s" %% "json4s-native" % "3.2.4"
 
